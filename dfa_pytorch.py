@@ -1,4 +1,5 @@
 import torch
+import random
 from torch import nn
 from torch.nn import functional as F
 
@@ -51,6 +52,7 @@ def main():
     optim = torch.optim.SGD(model.parameters(), lr=0.001)
 
     for epoch in range(5000):
+        random.shuffle(train)
         for x, y in train:
             model.zero_grad()
             y_pred = model(x)
