@@ -16,11 +16,6 @@ class DFA(nn.Module):
         self.delta /= self.delta.sum(1).unsqueeze(1).expand(self.delta.shape)
         self.delta.requires_grad = True
 
-        self.f.requires_grad = False
-        self.f /= self.f.sum()
-        self.f.requires_grad = True
-
-
     def forward(self, s):
         q = torch.zeros(self.n)
         q[0] = 1
@@ -56,9 +51,10 @@ def main():
         for x, y in train:
             model.zero_grad()
             y_pred = model(x)
-            reg = torch.cat((model.delta.permute((0, 2, 1)).contiguous().view(n * s, -1), model.f.unsqueeze(0)))
-            reg_loss1 = (reg.sum(1) - 1).pow(2).sum()
-            reg_loss2 = reg.clamp(max=0).pow(2).sum() + (reg-1).clamp(min=0).pow(2).sum()
+            reg1 = model.delta.permute((0, 2, 1)).contiguous().view(n * s, -1)
+            reg_loss1 = (reg1.sum(1) - 1).pow(2).sum()
+            reg2 = torch.cat((reg1, model.f.unsqueeze(0)))
+            reg_loss2 = reg2.clamp(max=0).pow(2).sum() + (reg2-1).clamp(min=0).pow(2).sum()
             loss = - y*y_pred.log() - (1-y)*(1-y_pred).log() + 100 * reg_loss1 + 100 * reg_loss2
             loss.backward()
             optim.step()
