@@ -56,7 +56,7 @@ def main():
             y_pred = model(x)
             reg = torch.cat((model.delta.permute((0, 2, 1)).contiguous().view(n * s, -1), model.f.unsqueeze(0)))
             reg_loss1 = (reg.sum(1) - 1).pow(2).sum()
-            reg_loss2 = reg.clamp(max=0).abs().pow(2).sum() + (reg-1).clamp(min=0).pow(2).sum()
+            reg_loss2 = reg.clamp(max=0).pow(2).sum() + (reg-1).clamp(min=0).pow(2).sum()
             loss = - y*y_pred.log() - (1-y)*(1-y_pred).log() + 100 * reg_loss1 + 100 * reg_loss2
             loss.backward()
             optim.step()
