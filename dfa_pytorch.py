@@ -58,4 +58,4 @@ def main():
             loss = - y*y_pred.log() - (1-y)*(1-y_pred).log() + 100 * reg_loss1 + 100 * reg_loss2
             loss.backward()
             optim.step()
-            print(model.f)
+            print(model.f.data.tolist())
