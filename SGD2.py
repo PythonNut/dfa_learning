@@ -48,8 +48,10 @@ train = [
 n,s=3,2
 model = DFA(n, s)
 optim = torch.optim.Adam(model.parameters(), lr=0.01)
+loss_sum = 0
+loss_list = []
 
-for epoch in range(1000):
+for epoch in range(100):
     random.shuffle(train)
     for x, y in train:
         model.zero_grad()
@@ -60,11 +62,14 @@ for epoch in range(1000):
         reg_loss3 = model.delta.sum(0).sum(1)[0].pow(2)
         reg_loss4 = 0  #torch.reshape(torch.where(model.delta<0,-1*model.delta,torch.zeros(s,n,n)),(-1,)).sum(0)
         loss = - y*y_pred.log() - (1-y)*(1-y_pred).log() + 100 * reg_loss1 + 100 * reg_loss2 + reg_loss3*100 +reg_loss4 * 100
+        loss_sum += loss.item()
         loss.backward()
         optim.step()
         model.normalize()
         print(model.delta)
+    loss_list += [loss_sum/len(train)]
+    loss_sum = 0
         
-def graph_loss(loss_list):
+def graph_loss(loss_list,y_low,y_high):
     plt.plot(list(range(0,len(loss_list))),loss_list)
-    plt.axis([0,len(loss_list),-0.1,2.1])
+    plt.axis([0,len(loss_list),y_low,y_high])
