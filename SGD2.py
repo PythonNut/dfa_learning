@@ -51,7 +51,7 @@ optim = torch.optim.Adam(model.parameters(), lr=0.01)
 loss_sum = 0
 loss_list = []
 
-for epoch in range(100):
+for epoch in range(500):
     random.shuffle(train)
     for x, y in train:
         model.zero_grad()
@@ -66,10 +66,12 @@ for epoch in range(100):
         loss.backward()
         optim.step()
         model.normalize()
-        print(model.delta)
+#       print(model.delta)
     loss_list += [loss_sum/len(train)]
     loss_sum = 0
         
 def graph_loss(loss_list,y_low,y_high):
     plt.plot(list(range(0,len(loss_list))),loss_list)
+    plt.title('Average Loss Over Each Epoch')
+    plt.axvspan(loss_list.index(min(loss_list))-1,loss_list.index(min(loss_list))+1,color = 'green', alpha = 0.5)
     plt.axis([0,len(loss_list),y_low,y_high])
