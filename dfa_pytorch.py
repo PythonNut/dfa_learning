@@ -16,8 +16,8 @@ class DFA(nn.Module):
         q = torch.zeros(self.n)
         q[0] = 1
 
-        delta = F.softmax(self.delta, dim=1)
-        f = torch.sigmoid(self.f)
+        delta = self.delta.softmax(dim=1)
+        f = self.f.sigmoid()
         for sym in s:
             q = delta[sym] @ q
         return f @ q
