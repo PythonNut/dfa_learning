@@ -5,55 +5,15 @@ import torch.nn.functional as F
 from torch.optim import Optimizer
 from queue import *
 import random
-'''
-def sgd(rate=0.01,symLs,size,inputLs,outputLs, states):
-	#states is number of states
-	# size is number of samples
-	symTen = dict({})
-	for i in symLs:
-		symTen[i] = torch.ones(states,states,requires_grad=True)/states/states
-	final = torch.ones(states,1,requires_grad=True)/states
-	for i in len(size):
-		tran = torch.tensor(input)
-		for j in inputL[i]:
-			tran = torch.mm(tran,symTen[j])
-		tran = torch.mm(tran,final)
-		loss = torch.sum( (input - tran)**2 )
-		#add regularizer later
-		loss.backward()
-		if i == size - 1:
-			print("symTen: ",symTen)
-			print("final: ",final)
-		with torch.no_grad():
-			for k in symLs:
-				symTen[k] = symTen[k] - rate * symTen[k].grad
-			final = final - rate * final.grad
-		for k in symLs:
-			symTen[k].requires_grad = True
-		final.requires_grad = True
-
-class DFA(nn.Module):
-	def __init__(self,sym,states):
-		super().__init__()
-		self.ls = nn.Parameter(torch.ones((sym,states,states),dtype=torch.float64,requires_grad=True)/states/states)
-			
-		#self.final=nn.Parameter(torch.ones((states,1),dtype=torch.float64,requires_grad=True))
-		
-	def forward(self,input):
-		tran = torch.tensor([1.0,0],dtype=torch.float64)
-		
-		for j in input:
-			tran = tran @ self.ls[j]
-		tran = tran @ self.ls[j]
-		return tran
-'''
-
+def logit(p):
+	return (p/(1-p)).log()
 class DFA(nn.Module):
 	def __init__(self, n, s):
 		super().__init__()
 		self.n, self.s = n, s
-		self.delta = nn.Parameter(torch.rand(s, n, n),requires_grad=True)
-		self.f = torch.tensor([0.0,1.0])
+		self.delta = nn.Parameter(torch.rand(s, n, n))
+		self.f = nn.Parameter(logit(torch.rand(n)))
+		
 		self.normalize()
 
 	def normalize(self):
@@ -65,16 +25,18 @@ class DFA(nn.Module):
 	def forward(self, s):
 		q = torch.zeros(self.n)
 		q[0] = 1
-		delta = self.delta
-		#delta = F.softmax(self.delta,dim=1)
-		#f = F.sigmoid(self.f)
+		delta = F.softmax(self.delta,dim=1)
+		f =torch.sigmoid(self.f)
 		for sym in s:
-			q = delta[sym] @ q
+			q = pt(delta[sym],q)
+			#q = delta[sym]@q
 		return q.dot(self.f)
 
+def mag(x):
+	return x**2/sum(x)
 def pt(x,y):
-	x=x**2/sum(x)
-	y=y**2/sum(y)
+	x=x**5/sum(x)
+	y=y**5/sum(y)
 	product = x@y
 	return product/sum(product)
 a=np.array([[0.1,0.9],[0.9,0.1]])
@@ -109,8 +71,11 @@ class SGD(Optimizer):
 				if p.grad is None:
 					continue
 				d_p = p.grad.data
+
 				if weight_decay != 0:
 					d_p.add_(weight_decay, p.data)
+				if stuck>10:
+					momentum = 10
 				if momentum != 0:
 					param_state = self.state[p]
 					if 'momentum_buffer' not in param_state:
@@ -126,7 +91,6 @@ class SGD(Optimizer):
 				p.data.add_(-group['lr'], d_p)
 
 		return loss
-
 train = [
 	([1], 1),
 	([1,1],0),
@@ -144,26 +108,47 @@ train = [
 	([0,0,0,1],1),
 	([0,0,0,0,1],1)
 ]
+
+
 n,s=2,2
 model = DFA(n, s)
-
+optim = SGD(model.parameters(), lr=0.01)
 stuck = 0
-past = Queue(10)
+history = Queue(10)
+past = -1
 for _ in range(10):
-	past.put(0)
-optim =SGD(model.parameters(),lr=0.001)
+	history.put(0)
 for epoch in range(1000):
 	random.shuffle(train)
 	for x, y in train:
 		model.zero_grad()
 		y_pred = model(x)
 		#reg1 = model.delta.permute((0, 2, 1)).contiguous().view(n * s, -1)
+		#reg_loss1 = (reg1.sum(1) - 1).pow(2).sum()
+		#reg2 = torch.cat((reg1, model.f.unsqueeze(0)))
+		#reg_loss2 = reg2.clamp(max=0).pow(2).sum() + (reg2-1).clamp(min=0).pow(2).sum()
+		#reg_loss3 = model.delta.sum(0).sum(1)[0].pow(2)
+		#reg_loss4 = torch.reshape(torch.where(model.delta>1,model.delta,torch.zeros(s,n,n)),(-1,)).sum(0)
 		loss_main =  y*y_pred.log() + (1-y)*(1-y_pred).log()
-		loss = -loss_main
+		loss = -loss_main 
+		if past == -1:
+			past = loss
+		else:
+			past = (loss.data-past)**2
+		first = torch.reshape(torch.where(model.delta>0.9,torch.zeros(s,n,n),model.delta),(-1,))
+		diff = torch.reshape(torch.where(model.delta<0.1,torch.zeros(s,n,n),model.delta*5),(-1,)).sum()
+		if past<0.5 and diff<0.5:
+			stuck+=1
+		#+ 10 * reg_loss1 + 10 * reg_loss2 + reg_loss3*10 +reg_loss4 * 10
 		loss.backward()
 		optim.step()
-		model.normalize()
-		print("@@@@@@@@@@@@@@@@@@@@@@@@@@")
-		print(model.delta)
-		print("#####################")
+		if stuck>20:
+			print("Stuck@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+		print(stuck)
+		print(loss)
+		print("#############################")
+		print(F.softmax(model.delta))
+		print("---------------")
 		print(model.delta.grad)
+
+
