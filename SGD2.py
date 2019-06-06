@@ -23,7 +23,7 @@ class DFA(nn.Module):
         for sym in s:
             q = delta[sym] @ q
         return f @ q
-
+'''
 train = [
     ([1,1,1,1,1,1,1], 1),
     ([1,1,1,1,1,1], 0),
@@ -41,11 +41,16 @@ train = [
     ([1,1],0),
     ([1,0,0,0,0], 1)
 ]
-test=[]
-for i in range(np.random.randint(100)):
-    sample = [ np.random.randint(2) for i in range(np.random.randint(100))]
-    result = np.sum(sample)%2
-    test.append( (sample,result) )
+'''
+sampleSet=set([])
+numSample =100
+while len(sampleSet)<numSample:
+    sample = tuple([ np.random.randint(2) for i in range(np.random.randint(100))])
+    result = sample.count(1)%2
+    sampleSet.add( (sample,result) )
+sampleSet=list(sampleSet)
+train = sampleSet[:int(numSample//4*3)]
+test = sampleSet[int(numSample//4*3):]
 #test=set(test)
 
 loss_track=[]
@@ -54,7 +59,7 @@ def main():
     model = DFA(n, s)
     optim = torch.optim.SGD(model.parameters(), lr=10)
 
-    for epoch in range(100):
+    for epoch in range(10):
         random.shuffle(train)
         lossRecord =[]
         for x, y in train:     
@@ -70,11 +75,28 @@ def main():
     sum =0
     for x,y in test:
         y_pred = model(x)
-        sum +=int(np.absolute(y_pred.item() - y)<0.01)
+        sum +=int(np.absolute(y_pred.item() - y)<0.1)
+        print("string "+str(x))
         print("compare actual   "+str(y) +" predict  "+str(y_pred))
         print("sum  "+str(sum))
     print(sum/len(test))
+    return [(sum/len(test)),F.softmax(model.delta,dim=1),model.f]
 def graph():
     plt.plot(loss_track)
     plt.title("average loss per epoch")
     plt.show()
+
+def testing(num):
+	score =0
+	delta =[]
+	final =[]
+	record=[]
+	for i in range(num):
+		r,d,f = main()
+		score+=r
+		delta.append(d)
+		final.append(f)
+		record.append([r,d,f])
+	print("final record over "+str(num)+" runs"+ str(score/num))
+# observation 0.44 and 1 gives us 0.72. 0.42 occcurs when we have[[[1,1],[0,0]],[[1,0],[0,1]]
+	return [[score,delta,final],record]
