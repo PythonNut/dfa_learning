@@ -18,4 +18,4 @@ q = [Int(parse(Int, join(p, ""), base=2) % 7 ==0) for p in P]
 a1 = (q' * V)'
 a∞ = pinv(Hf * V) * q
 
-@show a1' * reduce(*, [A[parse(Int, c) + 1] for c in reverse(string(7 * 99 + 7, base=2))]) * a∞
+@show [a1' * reduce(*, [A[parse(Int, c) + 1] for c in reverse(string(7 * 99 + k, base=2))]) * a∞ for k in 0:6]
