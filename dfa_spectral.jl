@@ -1,7 +1,7 @@
 using LowRankApprox
 using LinearAlgebra
 
-P = collect.(collect(Iterators.product(repeat([[0, 1]], 7)...))[:])
+P = collect.(collect(Iterators.product(repeat([[0, 1]], 3)...))[:])
 
 Hf = hcat([[Int(parse(Int, join(cat(p, s, dims=1), ""), base=2) % 7 ==0) for p in P] for s in P]...)'
 Hf0 = hcat([[Int(parse(Int, join(cat(p, [0], s, dims=1), ""), base=2) % 7 ==0) for p in P] for s in P]...)'
