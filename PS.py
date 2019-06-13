@@ -44,7 +44,10 @@ def constrain(delta):
 	con =delta.reshape(1,-1)
 	cont = np.where(con<=0,-1,con)
 	cont = np.where(cont >1, -1, con)
-
+	bound =[]
+	for i in range(len(delta)):
+		bound
+	return cont
 
 train = [
 	([1,1,1,1,1,1,1], 1),

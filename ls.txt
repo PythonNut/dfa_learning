@@ -1,0 +1,1501 @@
+[[1.0, tensor([[[9.9999e-01, 2.1815e-19],
+         [5.0501e-06, 1.0000e+00]],
+
+        [[5.1448e-06, 9.9999e-01],
+         [9.9999e-01, 5.3714e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0886,  8.3346], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7016e-06],
+         [4.9275e-06, 1.0000e+00]],
+
+        [[1.0982e-06, 9.9999e-01],
+         [1.0000e+00, 5.2341e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0768,  8.4890], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 5.2229e-05],
+         [6.9289e-09, 9.9995e-01]],
+
+        [[1.0000e+00, 4.6744e-11],
+         [5.2771e-12, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8247,  6.5446], requires_grad=True)], [0.52, tensor([[[1.3341e-06, 6.7923e-05],
+         [1.0000e+00, 9.9993e-01]],
+
+        [[1.0000e+00, 2.4668e-07],
+         [3.2139e-07, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 2.0491, -5.1528], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 1.4575e-05],
+         [5.2278e-10, 9.9999e-01]],
+
+        [[1.0000e+00, 9.9997e-01],
+         [3.7018e-07, 3.1505e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8206, -0.1737], requires_grad=True)], [1.0, tensor([[[9.9998e-01, 3.0970e-05],
+         [2.4512e-05, 9.9997e-01]],
+
+        [[8.9098e-07, 1.0000e+00],
+         [1.0000e+00, 2.2668e-10]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.2844,  6.8300], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8780e-06],
+         [2.9090e-06, 1.0000e+00]],
+
+        [[5.1414e-06, 9.9999e-01],
+         [9.9999e-01, 5.4061e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2507,  8.3438], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.0153e-11],
+         [1.0159e-06, 1.0000e+00]],
+
+        [[5.0863e-06, 9.9999e-01],
+         [9.9999e-01, 5.3154e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0697,  8.3525], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8103e-06],
+         [1.3677e-07, 1.0000e+00]],
+
+        [[5.0269e-06, 9.9999e-01],
+         [9.9999e-01, 5.3517e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2719,  8.3428], requires_grad=True)], [0.48, tensor([[[1.0974e-06, 1.0000e+00],
+         [1.0000e+00, 2.0911e-11]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [2.2839e-06, 4.1572e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.2699, 5.0699], requires_grad=True)], [0.52, tensor([[[2.9163e-06, 1.0000e+00],
+         [1.0000e+00, 1.1164e-06]],
+
+        [[1.0000e+00, 3.3972e-06],
+         [2.7685e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.0817, -4.0121], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7473e-06],
+         [1.7061e-06, 1.0000e+00]],
+
+        [[5.0337e-06, 9.9999e-01],
+         [9.9999e-01, 5.2594e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1966,  8.3702], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 8.5945e-06],
+         [5.9566e-06, 9.9999e-01]],
+
+        [[2.3163e-06, 1.0000e+00],
+         [1.0000e+00, 2.7118e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.2079,  7.4936], requires_grad=True)], [0.68, tensor([[[9.9997e-01, 9.9999e-01],
+         [3.3791e-05, 6.9331e-06]],
+
+        [[7.7915e-05, 6.6533e-05],
+         [9.9992e-01, 9.9993e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0191, -5.0668], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.4168e-06],
+         [1.0894e-05, 1.0000e+00]],
+
+        [[2.4101e-06, 1.0000e+00],
+         [1.0000e+00, 2.3890e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.2825,  7.6091], requires_grad=True)], [0.48, tensor([[[2.1189e-02, 4.8683e-07],
+         [9.7881e-01, 1.0000e+00]],
+
+        [[7.2849e-06, 6.1094e-07],
+         [9.9999e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([2.9363, 4.9084], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.8214e-08],
+         [1.9635e-06, 1.0000e+00]],
+
+        [[6.0542e-06, 1.0000e+00],
+         [9.9999e-01, 2.9394e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8647,  8.1909], requires_grad=True)], [0.48, tensor([[[7.0470e-07, 1.0000e+00],
+         [1.0000e+00, 3.5295e-06]],
+
+        [[1.0000e+00, 1.5203e-07],
+         [5.7671e-13, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.3914, 4.6291], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.9830e-06],
+         [4.0104e-06, 9.9999e-01]],
+
+        [[2.6979e-06, 9.9999e-01],
+         [1.0000e+00, 5.3314e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0066,  8.3202], requires_grad=True)], [0.68, tensor([[[3.2146e-08, 9.7465e-07],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [3.3642e-06, 1.9790e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.8810,  4.5140], requires_grad=True)], [0.6, tensor([[[1.8134e-06, 6.7755e-06],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[4.8663e-06, 9.9999e-01],
+         [1.0000e+00, 7.7481e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.1730,  5.5770], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.3230e-06],
+         [4.6587e-06, 1.0000e+00]],
+
+        [[4.9595e-06, 1.0000e+00],
+         [9.9999e-01, 4.8991e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0828,  8.3944], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.2873e-06],
+         [4.9399e-06, 1.0000e+00]],
+
+        [[5.0361e-06, 9.9999e-01],
+         [9.9999e-01, 5.1755e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0593,  8.3597], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7368e-06],
+         [4.9384e-06, 1.0000e+00]],
+
+        [[5.0185e-06, 9.9999e-01],
+         [9.9999e-01, 5.2414e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0736,  8.3688], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 3.6195e-06],
+         [5.1465e-06, 1.0000e+00]],
+
+        [[5.1440e-06, 1.0000e+00],
+         [9.9999e-01, 2.2546e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0178,  8.2998], requires_grad=True)], [0.48, tensor([[[8.4324e-07, 1.0000e+00],
+         [1.0000e+00, 3.5103e-06]],
+
+        [[1.0000e+00, 1.0576e-11],
+         [1.1076e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.8724, 5.0158], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.4588e-06],
+         [5.6965e-06, 9.9999e-01]],
+
+        [[5.7990e-06, 1.0000e+00],
+         [9.9999e-01, 4.7553e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9303,  8.2247], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 1.0000e+00],
+         [1.5254e-06, 1.2856e-06]],
+
+        [[1.0000e+00, 1.0095e-05],
+         [2.4773e-11, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.9239,  5.8463], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 6.5452e-07],
+         [2.1489e-06, 1.0000e+00]],
+
+        [[4.4425e-06, 9.9999e-01],
+         [1.0000e+00, 5.2735e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0594,  8.3641], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.4102e-06],
+         [5.0047e-06, 1.0000e+00]],
+
+        [[3.8959e-06, 9.9999e-01],
+         [1.0000e+00, 5.3165e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0585,  8.5031], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6245e-06],
+         [4.4269e-06, 1.0000e+00]],
+
+        [[4.9609e-06, 9.9999e-01],
+         [9.9999e-01, 5.1812e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0740,  8.4033], requires_grad=True)], [0.48, tensor([[[1.0652e-06, 1.0000e+00],
+         [1.0000e+00, 9.9150e-10]],
+
+        [[6.0021e-12, 5.1643e-05],
+         [1.0000e+00, 9.9995e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1221, 4.9620], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 9.3446e-07],
+         [4.9290e-06, 1.0000e+00]],
+
+        [[3.2128e-06, 9.9999e-01],
+         [1.0000e+00, 5.2578e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1819,  8.4789], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8691e-06],
+         [4.0286e-06, 1.0000e+00]],
+
+        [[5.1964e-06, 9.9999e-01],
+         [9.9999e-01, 5.2839e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1185,  8.3928], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7126e-06],
+         [4.6110e-06, 1.0000e+00]],
+
+        [[4.9985e-06, 1.0000e+00],
+         [9.9999e-01, 4.3986e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0709,  8.3762], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7275e-06],
+         [4.8787e-07, 1.0000e+00]],
+
+        [[5.0301e-06, 9.9999e-01],
+         [9.9999e-01, 5.2652e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1500,  8.3683], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 3.1466e-07],
+         [5.3919e-06, 1.0000e+00]],
+
+        [[2.4013e-06, 1.0000e+00],
+         [1.0000e+00, 5.9436e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0170,  8.2619], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.5075e-06],
+         [6.4314e-06, 1.0000e+00]],
+
+        [[8.5381e-07, 1.0000e+00],
+         [1.0000e+00, 2.6722e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8079,  8.1393], requires_grad=True)], [0.68, tensor([[[1.3475e-05, 4.3175e-05],
+         [9.9999e-01, 9.9996e-01]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [7.6847e-08, 2.1020e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8385,  5.2145], requires_grad=True)], [0.52, tensor([[[1.1704e-06, 1.0412e-05],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[1.0000e+00, 1.1964e-06],
+         [5.8706e-07, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.4321, -4.7053], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.3521e-06],
+         [1.1375e-16, 1.0000e+00]],
+
+        [[9.9999e-01, 9.9999e-01],
+         [7.6527e-06, 7.0174e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.9293, -4.0311], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7394e-06],
+         [4.8288e-06, 1.0000e+00]],
+
+        [[5.0432e-06, 9.9999e-01],
+         [9.9999e-01, 5.2664e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0920,  8.3574], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 6.3602e-08],
+         [1.1442e-06, 1.0000e+00]],
+
+        [[5.0841e-06, 9.9999e-01],
+         [9.9999e-01, 5.2224e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2407,  8.3538], requires_grad=True)], [0.68, tensor([[[2.3830e-05, 9.9994e-01],
+         [9.9998e-01, 6.2321e-05]],
+
+        [[2.0225e-05, 1.1794e-06],
+         [9.9998e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.2864, -4.8781], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 7.0243e-06],
+         [8.8623e-06, 9.9999e-01]],
+
+        [[2.1713e-06, 9.9999e-01],
+         [1.0000e+00, 9.6223e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.5154,  7.9940], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.8566e-06],
+         [2.4087e-07, 1.0000e+00]],
+
+        [[9.8648e-07, 9.9999e-01],
+         [1.0000e+00, 5.3301e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.7479,  8.0388], requires_grad=True)], [0.48, tensor([[[5.8160e-07, 5.9389e-02],
+         [1.0000e+00, 9.4061e-01]],
+
+        [[1.0000e+00, 9.9559e-16],
+         [1.3714e-07, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-3.1299,  5.6537], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7213e-06],
+         [4.7113e-06, 1.0000e+00]],
+
+        [[5.0365e-06, 9.9999e-01],
+         [9.9999e-01, 5.2579e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0671,  8.3670], requires_grad=True)], [0.52, tensor([[[1.6806e-06, 2.1936e-05],
+         [1.0000e+00, 9.9998e-01]],
+
+        [[1.0000e+00, 2.8131e-07],
+         [4.5094e-11, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 6.4577, -4.5384], requires_grad=True)], [0.48, tensor([[[2.5361e-07, 1.0000e+00],
+         [1.0000e+00, 2.1240e-12]],
+
+        [[1.6309e-11, 1.9888e-04],
+         [1.0000e+00, 9.9980e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1408, 5.0049], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.1028e-05],
+         [7.8819e-06, 9.9998e-01]],
+
+        [[1.2362e-05, 1.0000e+00],
+         [9.9999e-01, 1.2937e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.6669,  6.8742], requires_grad=True)], [0.52, tensor([[[3.8012e-05, 8.3687e-06],
+         [9.9996e-01, 9.9999e-01]],
+
+        [[1.0000e+00, 3.7501e-07],
+         [1.7172e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 6.5016, -5.0771], requires_grad=True)], [0.48, tensor([[[2.1566e-05, 9.9998e-01],
+         [9.9998e-01, 2.1653e-05]],
+
+        [[1.0000e+00, 7.1103e-07],
+         [4.1753e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.0709,  5.9487], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.6437e-06],
+         [4.9245e-06, 1.0000e+00]],
+
+        [[2.0273e-06, 9.9999e-01],
+         [1.0000e+00, 5.5648e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0492,  8.2921], requires_grad=True)], [0.52, tensor([[[1.2720e-04, 1.4946e-06],
+         [9.9987e-01, 1.0000e+00]],
+
+        [[1.0000e+00, 7.6034e-07],
+         [4.7741e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.2297, -4.8076], requires_grad=True)], [0.48, tensor([[[9.9991e-01, 1.0000e+00],
+         [8.7806e-05, 3.6577e-06]],
+
+        [[1.0000e+00, 1.4046e-11],
+         [2.4999e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1017, 5.2358], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6770e-06],
+         [1.8006e-06, 1.0000e+00]],
+
+        [[4.2575e-06, 9.9999e-01],
+         [1.0000e+00, 5.1983e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0785,  8.3684], requires_grad=True)], [0.32, tensor([[[1.2322e-06, 1.0000e+00],
+         [1.0000e+00, 2.4008e-06]],
+
+        [[2.1931e-05, 3.6670e-07],
+         [9.9998e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.7351,  4.9999], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 9.9739e-01],
+         [8.6530e-07, 2.6120e-03]],
+
+        [[1.0000e+00, 9.9998e-01],
+         [2.1156e-06, 2.2710e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.9195, -5.6609], requires_grad=True)], [0.32, tensor([[[3.7212e-06, 1.0000e+00],
+         [1.0000e+00, 3.6131e-06]],
+
+        [[9.9997e-01, 9.9991e-01],
+         [2.5857e-05, 9.0717e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.2611, -4.9116], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 3.6247e-06],
+         [4.9890e-06, 1.0000e+00]],
+
+        [[3.9355e-06, 9.9999e-01],
+         [1.0000e+00, 5.3141e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0434,  8.3430], requires_grad=True)], [0.48, tensor([[[1.3874e-08, 1.0000e+00],
+         [1.0000e+00, 1.6783e-06]],
+
+        [[1.0967e-09, 1.0000e+00],
+         [1.0000e+00, 2.5229e-09]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.7739, 5.1413], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.6735e-06],
+         [4.9491e-06, 1.0000e+00]],
+
+        [[5.0670e-06, 9.9999e-01],
+         [9.9999e-01, 5.2898e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0519,  8.3602], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.3179e-06],
+         [2.4234e-06, 9.9999e-01]],
+
+        [[5.5319e-06, 1.0000e+00],
+         [9.9999e-01, 8.8310e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1502,  8.2396], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.8200e-06],
+         [1.6845e-06, 1.0000e+00]],
+
+        [[4.0973e-06, 1.0000e+00],
+         [1.0000e+00, 4.5527e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0135,  8.4082], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 1.0000e+00],
+         [4.9032e-07, 1.5463e-06]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [1.7169e-06, 2.1986e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.5469, -6.0902], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 2.3237e-07],
+         [5.6241e-07, 1.0000e+00]],
+
+        [[8.0661e-05, 1.0000e+00],
+         [9.9992e-01, 8.0926e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.8409,  6.1719], requires_grad=True)], [0.48, tensor([[[9.9992e-01, 1.0000e+00],
+         [8.3001e-05, 8.4007e-10]],
+
+        [[6.0547e-12, 1.0000e+00],
+         [1.0000e+00, 1.2690e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.3092, 4.1430], requires_grad=True)], [0.48, tensor([[[1.0332e-04, 1.0000e+00],
+         [9.9990e-01, 2.1231e-06]],
+
+        [[9.9996e-01, 1.9930e-20],
+         [3.6398e-05, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.9302,  6.4869], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.7003e-06],
+         [1.4073e-06, 1.0000e+00]],
+
+        [[5.0582e-06, 9.9999e-01],
+         [9.9999e-01, 5.2127e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0678,  8.3976], requires_grad=True)], [0.68, tensor([[[2.7957e-04, 1.0000e+00],
+         [9.9972e-01, 2.7631e-06]],
+
+        [[9.9999e-01, 9.9999e-01],
+         [9.7515e-06, 1.4375e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.5393,  3.7255], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.4308e-06],
+         [5.0206e-06, 1.0000e+00]],
+
+        [[5.0977e-06, 9.9999e-01],
+         [9.9999e-01, 5.3289e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0482,  8.3532], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.7837e-06],
+         [4.9787e-06, 1.0000e+00]],
+
+        [[5.0725e-06, 9.9999e-01],
+         [9.9999e-01, 5.2965e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1022,  8.3486], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6252e-06],
+         [4.9411e-06, 1.0000e+00]],
+
+        [[4.9699e-06, 9.9999e-01],
+         [9.9999e-01, 5.2656e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1395,  8.3461], requires_grad=True)], [0.48, tensor([[[5.7115e-06, 1.0000e+00],
+         [9.9999e-01, 2.2776e-16]],
+
+        [[9.9996e-01, 8.7873e-05],
+         [4.3696e-05, 9.9991e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8339,  3.5990], requires_grad=True)], [0.52, tensor([[[6.0126e-07, 2.3179e-03],
+         [1.0000e+00, 9.9768e-01]],
+
+        [[5.8715e-06, 5.5080e-13],
+         [9.9999e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-0.9157, -4.0920], requires_grad=True)], [1.0, tensor([[[9.9996e-01, 5.0006e-09],
+         [4.1846e-05, 1.0000e+00]],
+
+        [[4.4272e-05, 1.0000e+00],
+         [9.9996e-01, 4.3726e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.8124,  7.1320], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [2.4800e-07, 1.0788e-06]],
+
+        [[1.0000e+00, 1.8085e-03],
+         [8.8328e-07, 9.9819e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1069, 3.8607], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.9161e-06],
+         [4.8716e-06, 1.0000e+00]],
+
+        [[4.6868e-06, 9.9999e-01],
+         [1.0000e+00, 5.1592e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0752,  8.3794], requires_grad=True)], [0.48, tensor([[[7.4239e-11, 1.0000e+00],
+         [1.0000e+00, 6.7023e-09]],
+
+        [[9.9815e-01, 1.0000e+00],
+         [1.8524e-03, 1.4570e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.2686, 3.3262], requires_grad=True)], [0.52, tensor([[[8.4132e-09, 3.0166e-05],
+         [1.0000e+00, 9.9997e-01]],
+
+        [[8.1592e-07, 1.0000e+00],
+         [1.0000e+00, 1.4743e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.9770, -4.5658], requires_grad=True)], [0.48, tensor([[[1.3408e-06, 5.6777e-04],
+         [1.0000e+00, 9.9943e-01]],
+
+        [[8.0918e-06, 1.3319e-09],
+         [9.9999e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1395, 4.8149], requires_grad=True)], [0.68, tensor([[[2.8920e-06, 9.9995e-01],
+         [1.0000e+00, 5.3039e-05]],
+
+        [[1.0000e+00, 9.9998e-01],
+         [9.8792e-12, 1.5656e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.7591,  5.0810], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 2.0999e-09],
+         [5.9684e-10, 1.0000e+00]],
+
+        [[5.9201e-06, 9.9999e-01],
+         [9.9999e-01, 6.5358e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8457,  8.1460], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [6.1359e-07, 8.6772e-07]],
+
+        [[3.9020e-06, 3.5722e-07],
+         [1.0000e+00, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.2593, 5.0216], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7095e-06],
+         [3.4301e-07, 1.0000e+00]],
+
+        [[4.9981e-06, 9.9999e-01],
+         [9.9999e-01, 5.2208e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2588,  8.4699], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 2.6406e-06],
+         [4.7817e-06, 1.0000e+00]],
+
+        [[1.1144e-06, 1.0000e+00],
+         [1.0000e+00, 1.4904e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.8104,  7.2808], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7527e-06],
+         [2.4828e-07, 1.0000e+00]],
+
+        [[9.3943e-06, 9.9999e-01],
+         [9.9999e-01, 9.8307e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.5536,  7.6902], requires_grad=True)], [0.48, tensor([[[4.1454e-05, 9.9988e-01],
+         [9.9996e-01, 1.1598e-04]],
+
+        [[1.0000e+00, 3.1383e-10],
+         [7.0402e-10, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.0632,  4.5177], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.0587e-08],
+         [2.3844e-06, 1.0000e+00]],
+
+        [[4.3817e-06, 9.9999e-01],
+         [1.0000e+00, 5.1977e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1486,  8.3785], requires_grad=True)], [0.4, tensor([[[1.9945e-06, 7.7743e-06],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[4.6225e-10, 1.0000e+00],
+         [1.0000e+00, 7.5549e-13]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.8764, -4.7728], requires_grad=True)], [0.48, tensor([[[3.6869e-06, 3.0917e-05],
+         [1.0000e+00, 9.9997e-01]],
+
+        [[1.0000e+00, 2.4678e-10],
+         [2.5611e-09, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([3.3902, 4.7941], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 9.9998e-01],
+         [8.4255e-07, 1.5899e-05]],
+
+        [[1.0000e+00, 9.9075e-01],
+         [1.7136e-06, 9.2482e-03]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.7492,  4.4563], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 9.9952e-01],
+         [7.3969e-07, 4.7899e-04]],
+
+        [[9.9999e-01, 1.0000e+00],
+         [4.9534e-06, 9.1295e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0974, -5.8911], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8248e-06],
+         [4.8470e-06, 1.0000e+00]],
+
+        [[5.1159e-06, 9.9999e-01],
+         [9.9999e-01, 5.3432e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0854,  8.3864], requires_grad=True)], [0.68, tensor([[[9.5633e-07, 9.9999e-01],
+         [1.0000e+00, 1.2032e-05]],
+
+        [[1.9905e-05, 1.5196e-07],
+         [9.9998e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.2393, -5.0632], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.4794e-09],
+         [5.1006e-06, 1.0000e+00]],
+
+        [[3.6590e-06, 9.9999e-01],
+         [1.0000e+00, 5.4515e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2662,  8.4216], requires_grad=True)], [0.48, tensor([[[2.8955e-07, 2.1480e-04],
+         [1.0000e+00, 9.9979e-01]],
+
+        [[1.0000e+00, 6.7520e-12],
+         [6.8603e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1875, 4.6223], requires_grad=True)], [0.6, tensor([[[1.5152e-07, 4.2515e-06],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[3.8403e-07, 9.9999e-01],
+         [1.0000e+00, 1.3162e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.1370,  5.0468], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7870e-06],
+         [1.2509e-06, 1.0000e+00]],
+
+        [[1.0921e-07, 1.0000e+00],
+         [1.0000e+00, 4.5455e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1621,  8.3500], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 9.9320e-01],
+         [6.1641e-07, 6.8008e-03]],
+
+        [[1.0000e+00, 8.9281e-01],
+         [8.6622e-07, 1.0719e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8165, -4.6894], requires_grad=True)], [0.48, tensor([[[6.5205e-06, 1.0657e-04],
+         [9.9999e-01, 9.9989e-01]],
+
+        [[1.0000e+00, 2.0545e-06],
+         [1.7948e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.3192, 4.8575], requires_grad=True)], [0.48, tensor([[[1.8166e-05, 1.0000e+00],
+         [9.9998e-01, 8.4313e-07]],
+
+        [[1.0000e+00, 5.9502e-06],
+         [1.7832e-08, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.9232, 3.6765], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.9977e-07],
+         [3.2339e-06, 1.0000e+00]],
+
+        [[5.0757e-06, 9.9999e-01],
+         [9.9999e-01, 5.3696e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0700,  8.3300], requires_grad=True)], [0.52, tensor([[[7.7193e-06, 3.6373e-06],
+         [9.9999e-01, 1.0000e+00]],
+
+        [[1.0000e+00, 1.3520e-06],
+         [7.0423e-12, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.2953, -4.9317], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.5689e-08],
+         [4.8424e-06, 1.0000e+00]],
+
+        [[4.9637e-06, 9.9999e-01],
+         [9.9999e-01, 5.2424e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0743,  8.4695], requires_grad=True)], [0.48, tensor([[[8.4600e-07, 8.2792e-06],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[9.9999e-01, 5.2700e-12],
+         [5.0561e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.9803,  5.2113], requires_grad=True)], [0.48, tensor([[[7.2956e-09, 1.0000e+00],
+         [1.0000e+00, 2.5430e-06]],
+
+        [[1.0000e+00, 1.2915e-13],
+         [2.7047e-13, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.8736, 5.3109], requires_grad=True)], [0.48, tensor([[[1.8374e-13, 1.0959e-04],
+         [1.0000e+00, 9.9989e-01]],
+
+        [[5.6403e-07, 1.0000e+00],
+         [1.0000e+00, 9.5321e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.6419, 5.3964], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7169e-06],
+         [4.9241e-06, 1.0000e+00]],
+
+        [[5.0149e-06, 9.9999e-01],
+         [9.9999e-01, 5.2388e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0650,  8.4074], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.0122e-06],
+         [4.8794e-06, 1.0000e+00]],
+
+        [[2.9297e-06, 9.9999e-01],
+         [1.0000e+00, 6.7846e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.7698,  8.0483], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.5499e-10],
+         [4.9200e-06, 1.0000e+00]],
+
+        [[5.3910e-06, 1.0000e+00],
+         [9.9999e-01, 1.5861e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1691,  8.2939], requires_grad=True)], [0.48, tensor([[[1.3269e-05, 9.9995e-01],
+         [9.9999e-01, 4.6326e-05]],
+
+        [[1.0000e+00, 3.6047e-07],
+         [4.8635e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.3950, 3.7139], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8517e-06],
+         [5.5680e-09, 1.0000e+00]],
+
+        [[2.1762e-07, 1.0000e+00],
+         [1.0000e+00, 1.7244e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0533,  8.3644], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.8749e-06],
+         [5.5432e-06, 1.0000e+00]],
+
+        [[1.5588e-06, 1.0000e+00],
+         [1.0000e+00, 4.6048e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1472,  8.3182], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.1911e-06],
+         [9.6159e-06, 9.9999e-01]],
+
+        [[3.5636e-07, 1.0000e+00],
+         [1.0000e+00, 1.6991e-10]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.3334,  6.6446], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6424e-06],
+         [4.9367e-06, 1.0000e+00]],
+
+        [[4.9844e-06, 9.9999e-01],
+         [9.9999e-01, 5.2367e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1169,  8.4248], requires_grad=True)], [0.48, tensor([[[4.9347e-06, 1.9920e-06],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [3.8063e-07, 4.8719e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1556, 5.3746], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.0600e-06],
+         [5.0320e-06, 1.0000e+00]],
+
+        [[2.6708e-06, 9.9999e-01],
+         [1.0000e+00, 5.4191e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0307,  8.3944], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 1.0000e+00],
+         [9.4541e-07, 9.6799e-07]],
+
+        [[1.0000e+00, 9.9814e-01],
+         [3.0366e-06, 1.8556e-03]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.2307, -4.0910], requires_grad=True)], [0.48, tensor([[[1.7576e-06, 1.0000e+00],
+         [1.0000e+00, 1.6265e-06]],
+
+        [[1.0000e+00, 1.2630e-08],
+         [3.1949e-09, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.5133, 6.0650], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.4436e-07],
+         [5.9349e-06, 1.0000e+00]],
+
+        [[1.3425e-06, 9.9999e-01],
+         [1.0000e+00, 6.4940e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8218,  8.2677], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 2.5539e-06],
+         [4.6028e-06, 1.0000e+00]],
+
+        [[3.4354e-06, 1.0000e+00],
+         [1.0000e+00, 6.4435e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1406,  8.3920], requires_grad=True)], [0.24, tensor([[[1.0596e-06, 9.9979e-01],
+         [1.0000e+00, 2.0588e-04]],
+
+        [[1.0000e+00, 9.2133e-05],
+         [2.8685e-07, 9.9991e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 6.1498, -1.0186], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.4578e-06],
+         [4.9879e-06, 1.0000e+00]],
+
+        [[5.1162e-06, 9.9999e-01],
+         [9.9999e-01, 5.6229e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9979,  8.4358], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7990e-06],
+         [3.6861e-06, 1.0000e+00]],
+
+        [[9.7823e-07, 1.0000e+00],
+         [1.0000e+00, 4.1401e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0480,  8.4591], requires_grad=True)], [0.4, tensor([[[1.0110e-06, 4.7087e-06],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[1.9752e-06, 1.0000e+00],
+         [1.0000e+00, 2.2159e-09]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.6986, -5.0800], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6878e-06],
+         [3.7012e-06, 1.0000e+00]],
+
+        [[2.2733e-06, 9.9999e-01],
+         [1.0000e+00, 5.8584e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9578,  8.2378], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.2905e-12],
+         [1.5056e-06, 1.0000e+00]],
+
+        [[5.2388e-06, 1.0000e+00],
+         [9.9999e-01, 2.1163e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0212,  8.3275], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6760e-06],
+         [4.8781e-06, 1.0000e+00]],
+
+        [[2.0494e-06, 9.9999e-01],
+         [1.0000e+00, 5.1900e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0786,  8.3741], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7479e-06],
+         [4.6586e-06, 1.0000e+00]],
+
+        [[6.4703e-07, 1.0000e+00],
+         [1.0000e+00, 3.1553e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1396,  8.3773], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6677e-06],
+         [2.7123e-06, 1.0000e+00]],
+
+        [[4.8981e-06, 1.0000e+00],
+         [1.0000e+00, 4.7831e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1052,  8.3646], requires_grad=True)], [0.48, tensor([[[9.9999e-01, 9.9995e-01],
+         [1.4849e-05, 4.5862e-05]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [8.6261e-07, 4.3191e-08]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0383, -3.4511], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6688e-06],
+         [4.8946e-06, 1.0000e+00]],
+
+        [[4.9909e-06, 9.9999e-01],
+         [9.9999e-01, 5.2068e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1059,  8.3800], requires_grad=True)], [0.4, tensor([[[1.2302e-06, 2.7872e-06],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[1.8216e-06, 1.0000e+00],
+         [1.0000e+00, 3.3631e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.7140, -4.6083], requires_grad=True)], [0.4, tensor([[[9.8040e-01, 1.0000e+00],
+         [1.9596e-02, 3.9215e-07]],
+
+        [[8.4280e-07, 1.0000e+00],
+         [1.0000e+00, 3.1345e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-3.7513,  6.6630], requires_grad=True)], [0.32, tensor([[[1.1240e-05, 1.0000e+00],
+         [9.9999e-01, 3.3093e-09]],
+
+        [[1.3332e-07, 1.6418e-02],
+         [1.0000e+00, 9.8358e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.7550,  5.3983], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 2.9632e-06],
+         [1.8393e-06, 1.0000e+00]],
+
+        [[5.6496e-06, 1.0000e+00],
+         [9.9999e-01, 2.7424e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0016,  8.1040], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7426e-06],
+         [4.8322e-06, 1.0000e+00]],
+
+        [[4.9849e-06, 9.9999e-01],
+         [9.9999e-01, 5.2635e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0876,  8.3599], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.4936e-06],
+         [5.6773e-06, 1.0000e+00]],
+
+        [[6.3510e-06, 9.9999e-01],
+         [9.9999e-01, 6.5369e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8208,  8.1248], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.5957e-06],
+         [5.7735e-06, 9.9999e-01]],
+
+        [[1.3118e-06, 1.0000e+00],
+         [1.0000e+00, 6.9153e-11]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9031,  8.2361], requires_grad=True)], [0.48, tensor([[[2.3724e-07, 1.0000e+00],
+         [1.0000e+00, 1.4938e-06]],
+
+        [[8.0838e-06, 1.0000e+00],
+         [9.9999e-01, 3.7634e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1468, 3.8153], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 3.9118e-06],
+         [5.7164e-06, 1.0000e+00]],
+
+        [[5.9669e-06, 1.0000e+00],
+         [9.9999e-01, 1.1939e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8867,  8.2215], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.5773e-08],
+         [4.8997e-06, 1.0000e+00]],
+
+        [[5.0231e-06, 9.9999e-01],
+         [9.9999e-01, 5.1908e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0803,  8.3601], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6975e-06],
+         [4.6863e-06, 1.0000e+00]],
+
+        [[4.7142e-06, 9.9999e-01],
+         [1.0000e+00, 5.0797e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2933,  8.3943], requires_grad=True)], [0.48, tensor([[[1.9492e-06, 8.4069e-07],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[8.7611e-10, 9.9999e-01],
+         [1.0000e+00, 6.1944e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([3.5339, 6.1945], requires_grad=True)], [0.4, tensor([[[1.4702e-06, 2.0441e-05],
+         [1.0000e+00, 9.9998e-01]],
+
+        [[1.1089e-06, 1.0000e+00],
+         [1.0000e+00, 2.5328e-10]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.7883, -4.7426], requires_grad=True)], [0.52, tensor([[[3.7234e-07, 1.0000e+00],
+         [1.0000e+00, 1.7480e-06]],
+
+        [[4.5184e-07, 1.0000e+00],
+         [1.0000e+00, 4.2522e-08]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.3081, -4.4894], requires_grad=True)], [0.24, tensor([[[1.1592e-05, 1.0000e+00],
+         [9.9999e-01, 1.0851e-06]],
+
+        [[9.1578e-04, 9.9998e-01],
+         [9.9908e-01, 1.6467e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.6759, -0.8776], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7727e-06],
+         [4.7491e-06, 1.0000e+00]],
+
+        [[4.9974e-06, 9.9999e-01],
+         [9.9999e-01, 5.3022e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1726,  8.3421], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.6919e-06],
+         [4.9580e-06, 1.0000e+00]],
+
+        [[5.0468e-06, 9.9999e-01],
+         [9.9999e-01, 5.2683e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0425,  8.3779], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.4766e-06],
+         [2.7323e-06, 1.0000e+00]],
+
+        [[5.1731e-06, 1.0000e+00],
+         [9.9999e-01, 1.5182e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9771,  8.2740], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.3287e-06],
+         [5.5698e-06, 9.9999e-01]],
+
+        [[2.1931e-06, 9.9999e-01],
+         [1.0000e+00, 5.9273e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9967,  8.2357], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.3967e-08],
+         [5.5036e-06, 1.0000e+00]],
+
+        [[5.8231e-06, 1.0000e+00],
+         [9.9999e-01, 1.1388e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1429,  8.2319], requires_grad=True)], [0.32, tensor([[[1.0907e-06, 3.3456e-01],
+         [1.0000e+00, 6.6544e-01]],
+
+        [[4.0075e-06, 5.1846e-10],
+         [1.0000e+00, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 3.6591, -5.5894], requires_grad=True)], [0.68, tensor([[[1.0000e+00, 1.0000e+00],
+         [2.1597e-06, 1.3425e-06]],
+
+        [[1.0084e-02, 2.4278e-07],
+         [9.8992e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0072, -4.4131], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 3.3946e-07],
+         [4.9823e-06, 1.0000e+00]],
+
+        [[5.0220e-06, 9.9999e-01],
+         [9.9999e-01, 5.2702e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0947,  8.3605], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.7001e-06],
+         [5.2379e-06, 1.0000e+00]],
+
+        [[5.2648e-06, 1.0000e+00],
+         [9.9999e-01, 4.3798e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0946,  8.3075], requires_grad=True)], [0.48, tensor([[[9.9990e-01, 3.7816e-05],
+         [1.0409e-04, 9.9996e-01]],
+
+        [[4.5834e-04, 4.9792e-07],
+         [9.9954e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8178,  4.9519], requires_grad=True)], [0.52, tensor([[[9.9977e-01, 9.9999e-01],
+         [2.2749e-04, 5.9316e-06]],
+
+        [[1.0000e+00, 3.1527e-09],
+         [1.2203e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.8131, -1.9572], requires_grad=True)], [0.52, tensor([[[9.9999e-01, 9.9998e-01],
+         [6.8302e-06, 1.7987e-05]],
+
+        [[8.4630e-06, 2.5340e-06],
+         [9.9999e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.7293, -4.9214], requires_grad=True)], [0.6, tensor([[[9.9961e-01, 1.0000e+00],
+         [3.9207e-04, 1.7650e-06]],
+
+        [[1.5377e-06, 9.9999e-01],
+         [1.0000e+00, 7.8604e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.7090, -5.2536], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8595e-06],
+         [4.2554e-06, 1.0000e+00]],
+
+        [[5.1681e-06, 9.9999e-01],
+         [9.9999e-01, 5.4018e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0591,  8.3499], requires_grad=True)], [0.68, tensor([[[2.0725e-05, 1.0000e+00],
+         [9.9998e-01, 8.5874e-07]],
+
+        [[6.3133e-05, 7.2107e-09],
+         [9.9994e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.5008, -5.2951], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.7290e-06],
+         [4.9625e-06, 1.0000e+00]],
+
+        [[5.0324e-06, 9.9999e-01],
+         [9.9999e-01, 5.2677e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0671,  8.3787], requires_grad=True)], [0.48, tensor([[[5.2750e-12, 9.9979e-01],
+         [1.0000e+00, 2.1227e-04]],
+
+        [[1.0000e+00, 2.0300e-07],
+         [1.1269e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-3.5896,  3.3920], requires_grad=True)], [0.48, tensor([[[1.9704e-08, 1.0000e+00],
+         [1.0000e+00, 3.9373e-08]],
+
+        [[1.2701e-07, 6.2035e-06],
+         [1.0000e+00, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1167, 5.1067], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.5972e-06],
+         [4.7167e-06, 1.0000e+00]],
+
+        [[4.9658e-06, 1.0000e+00],
+         [9.9999e-01, 3.6600e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2002,  8.4591], requires_grad=True)], [0.32, tensor([[[1.2210e-06, 9.9993e-01],
+         [1.0000e+00, 7.3358e-05]],
+
+        [[1.0000e+00, 9.9977e-01],
+         [2.8414e-17, 2.3489e-04]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 3.6297, -4.0563], requires_grad=True)], [0.48, tensor([[[9.9999e-01, 1.0000e+00],
+         [8.6889e-06, 2.4246e-11]],
+
+        [[1.0000e+00, 9.4360e-07],
+         [1.8977e-10, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.4049, -6.0192], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [3.7047e-06, 1.6527e-06]],
+
+        [[1.6011e-02, 1.0000e+00],
+         [9.8399e-01, 2.5013e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.8130, 4.6457], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7050e-06],
+         [4.2272e-06, 1.0000e+00]],
+
+        [[5.0024e-06, 1.0000e+00],
+         [9.9999e-01, 2.7387e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0747,  8.3665], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.5813e-06],
+         [4.9221e-06, 1.0000e+00]],
+
+        [[5.0357e-06, 9.9999e-01],
+         [9.9999e-01, 5.2530e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1019,  8.3559], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.4304e-06],
+         [3.7125e-06, 9.9999e-01]],
+
+        [[3.7194e-07, 9.9999e-01],
+         [1.0000e+00, 6.0133e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9353,  8.3136], requires_grad=True)], [0.52, tensor([[[1.9445e-06, 2.5700e-06],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[1.0000e+00, 5.1508e-07],
+         [6.7217e-12, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.9089, -4.7542], requires_grad=True)], [0.48, tensor([[[1.7428e-06, 1.0000e+00],
+         [1.0000e+00, 7.4497e-08]],
+
+        [[1.0000e+00, 9.9944e-01],
+         [7.8468e-10, 5.5663e-04]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1620, 4.5711], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.4911e-06],
+         [4.9188e-06, 1.0000e+00]],
+
+        [[4.4346e-06, 9.9999e-01],
+         [1.0000e+00, 5.2338e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1091,  8.4525], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.0120e-06],
+         [6.3101e-06, 1.0000e+00]],
+
+        [[3.0111e-06, 9.9999e-01],
+         [1.0000e+00, 5.5943e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9362,  8.2247], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7207e-06],
+         [4.9103e-06, 1.0000e+00]],
+
+        [[5.0000e-06, 9.9999e-01],
+         [9.9999e-01, 5.1994e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0691,  8.3591], requires_grad=True)], [0.52, tensor([[[2.4315e-09, 1.0000e+00],
+         [1.0000e+00, 8.8064e-07]],
+
+        [[2.1321e-10, 1.0000e+00],
+         [1.0000e+00, 4.4843e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 3.8066, -5.3236], requires_grad=True)], [0.48, tensor([[[9.9994e-01, 9.9999e-01],
+         [5.5673e-05, 9.3017e-06]],
+
+        [[1.5605e-05, 8.3738e-14],
+         [9.9998e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.0541, 5.2655], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [1.3323e-06, 1.4375e-06]],
+
+        [[1.0000e+00, 5.3267e-07],
+         [4.4991e-09, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.1164, -5.7885], requires_grad=True)], [0.48, tensor([[[9.9997e-01, 9.9999e-01],
+         [3.3626e-05, 1.1902e-05]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [3.6496e-06, 2.6013e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1229, 2.4753], requires_grad=True)], [0.48, tensor([[[2.1701e-06, 1.0000e+00],
+         [1.0000e+00, 3.4471e-06]],
+
+        [[2.5376e-05, 2.2818e-13],
+         [9.9997e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.8599, 5.2106], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.3185e-06],
+         [4.9692e-06, 1.0000e+00]],
+
+        [[5.0786e-06, 9.9999e-01],
+         [9.9999e-01, 5.3070e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2654,  8.3614], requires_grad=True)], [0.0, tensor([[[7.8783e-01, 9.9999e-01],
+         [2.1217e-01, 1.3512e-05]],
+
+        [[1.0000e+00, 1.0882e-06],
+         [4.4580e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0018, -1.4626], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 7.8986e-05],
+         [3.9658e-10, 9.9992e-01]],
+
+        [[1.1354e-11, 1.0000e+00],
+         [1.0000e+00, 6.1588e-11]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.5811,  5.9578], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 3.9940e-12],
+         [1.3048e-05, 1.0000e+00]],
+
+        [[1.4356e-06, 1.0000e+00],
+         [1.0000e+00, 3.2231e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.0854,  7.3368], requires_grad=True)], [0.52, tensor([[[1.7433e-06, 1.5089e-05],
+         [1.0000e+00, 9.9998e-01]],
+
+        [[1.0000e+00, 1.0478e-10],
+         [1.9986e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.3262, -4.6668], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 7.1146e-07],
+         [3.7216e-15, 1.0000e+00]],
+
+        [[5.3361e-06, 1.0000e+00],
+         [9.9999e-01, 3.8450e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.6576,  7.6473], requires_grad=True)], [0.68, tensor([[[1.4096e-06, 1.0000e+00],
+         [1.0000e+00, 8.3912e-07]],
+
+        [[3.3196e-11, 4.3587e-03],
+         [1.0000e+00, 9.9564e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.3970, -5.1251], requires_grad=True)], [0.48, tensor([[[8.6066e-06, 2.3673e-05],
+         [9.9999e-01, 9.9998e-01]],
+
+        [[1.0000e+00, 1.1114e-06],
+         [3.9366e-07, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.5252, 5.6105], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.0137e-07],
+         [6.0268e-06, 1.0000e+00]],
+
+        [[2.2859e-06, 9.9999e-01],
+         [1.0000e+00, 6.5463e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0128,  8.1425], requires_grad=True)], [0.52, tensor([[[6.5871e-05, 1.0000e+00],
+         [9.9993e-01, 1.4104e-06]],
+
+        [[1.0000e+00, 5.4693e-11],
+         [4.1066e-14, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.2932, -4.9814], requires_grad=True)], [0.68, tensor([[[9.9995e-01, 9.9999e-01],
+         [4.5392e-05, 1.0337e-05]],
+
+        [[9.8138e-07, 7.5033e-07],
+         [1.0000e+00, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.2003, -4.9352], requires_grad=True)], [0.52, tensor([[[1.2085e-06, 1.0000e+00],
+         [1.0000e+00, 2.2883e-06]],
+
+        [[1.0000e+00, 9.9997e-01],
+         [2.4172e-07, 3.0791e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.9704, -4.7660], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7344e-06],
+         [1.4292e-06, 1.0000e+00]],
+
+        [[5.1632e-06, 9.9999e-01],
+         [9.9999e-01, 5.3733e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0601,  8.4080], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.3627e-06],
+         [5.6266e-06, 9.9999e-01]],
+
+        [[1.3527e-06, 9.9999e-01],
+         [1.0000e+00, 6.0146e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9765,  8.3216], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7938e-06],
+         [4.5117e-06, 1.0000e+00]],
+
+        [[3.4131e-06, 1.0000e+00],
+         [1.0000e+00, 4.1136e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0530,  8.4699], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7550e-06],
+         [3.9593e-06, 1.0000e+00]],
+
+        [[4.9226e-06, 1.0000e+00],
+         [1.0000e+00, 2.2923e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1204,  8.4991], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.3132e-06],
+         [1.5317e-06, 1.0000e+00]],
+
+        [[4.3491e-07, 1.0000e+00],
+         [1.0000e+00, 1.5527e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.6819,  7.9774], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.9411e-06],
+         [5.3217e-06, 1.0000e+00]],
+
+        [[4.4641e-06, 9.9999e-01],
+         [1.0000e+00, 5.4724e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0862,  8.4278], requires_grad=True)], [0.32, tensor([[[2.1127e-08, 4.7319e-05],
+         [1.0000e+00, 9.9995e-01]],
+
+        [[1.0000e+00, 9.9983e-01],
+         [9.1734e-07, 1.6782e-04]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.5076, -5.1412], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.5186e-06],
+         [1.2673e-05, 1.0000e+00]],
+
+        [[3.8900e-07, 1.0000e+00],
+         [1.0000e+00, 4.7199e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.3406,  7.4689], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.9985e-06],
+         [5.3105e-06, 9.9999e-01]],
+
+        [[9.5812e-07, 9.9999e-01],
+         [1.0000e+00, 5.7169e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1790,  8.2747], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.8444e-06],
+         [5.0950e-06, 1.0000e+00]],
+
+        [[5.1781e-06, 9.9999e-01],
+         [9.9999e-01, 4.9510e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0463,  8.3262], requires_grad=True)], [0.48, tensor([[[2.9994e-04, 5.2804e-05],
+         [9.9970e-01, 9.9995e-01]],
+
+        [[1.0508e-05, 1.0000e+00],
+         [9.9999e-01, 2.2554e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.7672, 3.4866], requires_grad=True)], [0.6, tensor([[[9.9999e-01, 1.0000e+00],
+         [1.4141e-05, 1.3886e-06]],
+
+        [[1.2227e-05, 9.9924e-01],
+         [9.9999e-01, 7.6346e-04]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.4719, -6.2724], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 6.8629e-06],
+         [7.1641e-06, 9.9999e-01]],
+
+        [[7.3069e-06, 1.0000e+00],
+         [9.9999e-01, 9.6695e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.7120,  8.0231], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.7228e-06],
+         [4.8968e-06, 1.0000e+00]],
+
+        [[4.9894e-06, 9.9999e-01],
+         [9.9999e-01, 5.2109e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0814,  8.3672], requires_grad=True)], [0.52, tensor([[[9.0511e-06, 1.3456e-06],
+         [9.9999e-01, 1.0000e+00]],
+
+        [[1.1468e-04, 4.9821e-12],
+         [9.9989e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.9676, -5.0217], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.3073e-06],
+         [1.1410e-05, 9.9999e-01]],
+
+        [[3.2943e-06, 1.0000e+00],
+         [1.0000e+00, 4.0021e-11]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.2328,  7.7737], requires_grad=True)], [0.48, tensor([[[1.0792e-06, 1.7773e-04],
+         [1.0000e+00, 9.9982e-01]],
+
+        [[1.0000e+00, 6.5402e-09],
+         [2.6663e-09, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-6.1169,  5.4762], requires_grad=True)], [0.52, tensor([[[1.1498e-06, 1.0000e+00],
+         [1.0000e+00, 6.4390e-07]],
+
+        [[1.0000e+00, 2.3002e-13],
+         [2.8768e-10, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.1661, -5.8928], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.2902e-07],
+         [3.1689e-06, 1.0000e+00]],
+
+        [[5.0365e-06, 9.9999e-01],
+         [9.9999e-01, 5.2542e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0646,  8.3607], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.7607e-06],
+         [3.6619e-07, 9.9999e-01]],
+
+        [[1.4415e-06, 1.0000e+00],
+         [1.0000e+00, 2.5073e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.7084,  8.0117], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 1.4916e-05],
+         [2.8915e-06, 9.9999e-01]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [8.8177e-07, 1.8529e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.5753,  3.1820], requires_grad=True)], [0.52, tensor([[[1.3174e-06, 1.0000e+00],
+         [1.0000e+00, 1.1407e-07]],
+
+        [[8.9403e-07, 1.0000e+00],
+         [1.0000e+00, 1.2281e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8213, -4.7440], requires_grad=True)], [0.48, tensor([[[9.9924e-01, 1.0000e+00],
+         [7.6306e-04, 6.2109e-07]],
+
+        [[1.0000e+00, 9.8757e-14],
+         [5.1685e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.9962, -3.7447], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.7271e-06],
+         [5.9585e-06, 9.9999e-01]],
+
+        [[3.2354e-07, 9.9999e-01],
+         [1.0000e+00, 6.3132e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8949,  8.2353], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.9951e-06],
+         [5.4906e-06, 9.9999e-01]],
+
+        [[1.0715e-06, 1.0000e+00],
+         [1.0000e+00, 5.7666e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8462,  8.3154], requires_grad=True)], [0.52, tensor([[[2.9037e-07, 2.6696e-05],
+         [1.0000e+00, 9.9997e-01]],
+
+        [[1.0000e+00, 3.3589e-08],
+         [8.1345e-09, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.1987, -4.7287], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8143e-06],
+         [4.7876e-06, 1.0000e+00]],
+
+        [[5.1102e-06, 9.9999e-01],
+         [9.9999e-01, 5.3331e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0406,  8.3441], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.9694e-06],
+         [1.9321e-06, 9.9999e-01]],
+
+        [[4.9854e-06, 1.0000e+00],
+         [9.9999e-01, 4.0030e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1236,  8.3791], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.7174e-05],
+         [6.2460e-07, 9.9998e-01]],
+
+        [[1.0000e+00, 9.9727e-01],
+         [5.1102e-07, 2.7297e-03]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.9072, -4.7196], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 1.7123e-07],
+         [1.3763e-10, 1.0000e+00]],
+
+        [[2.6190e-06, 1.0000e+00],
+         [1.0000e+00, 4.3276e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0001,  8.3321], requires_grad=True)], [0.52, tensor([[[1.0995e-02, 1.6083e-05],
+         [9.8900e-01, 9.9998e-01]],
+
+        [[6.7972e-06, 1.0000e+00],
+         [9.9999e-01, 3.7327e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.0848, -3.4565], requires_grad=True)], [0.68, tensor([[[3.1761e-04, 9.9998e-01],
+         [9.9968e-01, 1.9452e-05]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [3.3997e-06, 1.6204e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.4505,  4.9993], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.1221e-09],
+         [4.9966e-06, 1.0000e+00]],
+
+        [[1.5866e-11, 9.9999e-01],
+         [1.0000e+00, 5.3269e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1623,  8.4071], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.9419e-07],
+         [4.9473e-06, 1.0000e+00]],
+
+        [[5.0598e-06, 9.9999e-01],
+         [9.9999e-01, 5.2820e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1395,  8.3897], requires_grad=True)], [0.48, tensor([[[5.1257e-06, 1.0000e+00],
+         [9.9999e-01, 1.2409e-06]],
+
+        [[9.9999e-01, 8.6308e-07],
+         [8.4369e-06, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.4771, 4.7846], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 2.4562e-06],
+         [4.9202e-06, 1.0000e+00]],
+
+        [[5.2139e-06, 1.0000e+00],
+         [9.9999e-01, 4.4121e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0309,  8.4224], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 6.3593e-06],
+         [6.0971e-06, 9.9999e-01]],
+
+        [[8.3744e-07, 1.0000e+00],
+         [1.0000e+00, 5.4870e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.7680,  8.0836], requires_grad=True)], [0.48, tensor([[[4.7803e-05, 9.9999e-01],
+         [9.9995e-01, 6.6997e-06]],
+
+        [[1.0000e+00, 2.0245e-08],
+         [1.4961e-07, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.0481, 5.6204], requires_grad=True)], [0.68, tensor([[[1.0535e-05, 9.9999e-01],
+         [9.9999e-01, 5.5991e-06]],
+
+        [[1.0000e+00, 9.9999e-01],
+         [1.9273e-06, 1.4418e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.7740,  5.0239], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 5.7003e-06],
+         [5.9351e-06, 9.9999e-01]],
+
+        [[5.4771e-06, 1.0000e+00],
+         [9.9999e-01, 3.1458e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.8770,  8.1804], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [9.9084e-07, 2.0461e-06]],
+
+        [[1.0000e+00, 9.9996e-01],
+         [1.5833e-06, 3.9743e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.1132, -5.7978], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [2.9060e-06, 2.7741e-06]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [1.3609e-06, 2.0514e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.9895, -5.1370], requires_grad=True)], [0.32, tensor([[[3.6371e-06, 1.0000e+00],
+         [1.0000e+00, 2.2094e-07]],
+
+        [[1.7865e-05, 2.9923e-12],
+         [9.9998e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.7540,  4.9310], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.2050e-06],
+         [2.4226e-06, 1.0000e+00]],
+
+        [[6.4034e-07, 1.0000e+00],
+         [1.0000e+00, 5.3726e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1264,  8.3270], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.5936e-07],
+         [4.8698e-06, 1.0000e+00]],
+
+        [[4.2431e-06, 1.0000e+00],
+         [1.0000e+00, 2.4393e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0676,  8.3523], requires_grad=True)], [0.52, tensor([[[9.9995e-01, 9.9999e-01],
+         [4.5454e-05, 5.3624e-06]],
+
+        [[1.0000e+00, 2.8346e-07],
+         [2.9458e-09, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8769,  5.5055], requires_grad=True)], [0.68, tensor([[[9.9999e-01, 9.9999e-01],
+         [6.3203e-06, 8.4928e-06]],
+
+        [[1.1439e-05, 1.0143e-05],
+         [9.9999e-01, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.1922, -4.9985], requires_grad=True)], [0.36, tensor([[[4.0185e-06, 9.8620e-02],
+         [1.0000e+00, 9.0138e-01]],
+
+        [[4.5031e-05, 9.9999e-01],
+         [9.9995e-01, 1.4820e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 2.2244, -4.7569], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 5.0579e-06],
+         [3.0324e-06, 9.9999e-01]],
+
+        [[1.6042e-06, 9.9999e-01],
+         [1.0000e+00, 5.6386e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0474,  8.2841], requires_grad=True)], [0.48, tensor([[[2.0266e-07, 1.0000e+00],
+         [1.0000e+00, 3.4934e-06]],
+
+        [[3.4521e-06, 1.0000e+00],
+         [1.0000e+00, 1.7405e-08]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-3.8898,  6.4332], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6944e-06],
+         [4.9382e-06, 1.0000e+00]],
+
+        [[5.0341e-06, 9.9999e-01],
+         [9.9999e-01, 5.2689e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0678,  8.3978], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.3199e-06],
+         [5.0327e-06, 1.0000e+00]],
+
+        [[5.2571e-06, 9.9999e-01],
+         [9.9999e-01, 5.4900e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1039,  8.3455], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6850e-06],
+         [1.7748e-07, 1.0000e+00]],
+
+        [[3.1597e-06, 9.9999e-01],
+         [1.0000e+00, 5.2231e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0776,  8.4566], requires_grad=True)], [0.48, tensor([[[2.8890e-06, 5.2462e-06],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[1.0000e+00, 1.3636e-06],
+         [4.4217e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([6.2011, 5.2606], requires_grad=True)], [0.52, tensor([[[2.1679e-06, 1.0882e-05],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[8.0476e-05, 4.0919e-11],
+         [9.9992e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.4367, -4.8898], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.5478e-06],
+         [4.9765e-06, 1.0000e+00]],
+
+        [[5.0689e-06, 9.9999e-01],
+         [9.9999e-01, 5.3092e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0519,  8.3856], requires_grad=True)], [0.52, tensor([[[2.4228e-07, 8.6167e-06],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[1.6602e-07, 5.2565e-06],
+         [1.0000e+00, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.0099, -4.8060], requires_grad=True)], [0.52, tensor([[[5.7501e-13, 1.2081e-05],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[3.6477e-04, 2.1447e-05],
+         [9.9964e-01, 9.9998e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.4478, -5.0275], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 6.5119e-06],
+         [2.1603e-06, 9.9999e-01]],
+
+        [[6.9309e-06, 1.0000e+00],
+         [9.9999e-01, 2.0379e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.7372,  8.0373], requires_grad=True)], [0.6, tensor([[[1.0000e+00, 1.0000e+00],
+         [1.7628e-06, 2.4137e-06]],
+
+        [[1.2230e-05, 1.0000e+00],
+         [9.9999e-01, 4.3976e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.2889, -5.1602], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 3.5602e-06],
+         [4.7853e-06, 1.0000e+00]],
+
+        [[4.9653e-06, 9.9999e-01],
+         [9.9999e-01, 5.4923e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0203,  8.3735], requires_grad=True)], [0.6, tensor([[[1.9791e-06, 2.6065e-07],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[7.5418e-07, 9.9999e-01],
+         [1.0000e+00, 6.3140e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.1345,  5.2821], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7176e-06],
+         [4.7149e-06, 1.0000e+00]],
+
+        [[5.1197e-06, 1.0000e+00],
+         [9.9999e-01, 4.3966e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0309,  8.3572], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6716e-06],
+         [4.8279e-06, 1.0000e+00]],
+
+        [[4.9690e-06, 9.9999e-01],
+         [9.9999e-01, 4.9805e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0860,  8.3783], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 9.9984e-01],
+         [2.2503e-06, 1.5710e-04]],
+
+        [[1.0000e+00, 9.9998e-01],
+         [7.8501e-13, 2.0368e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0024, -4.4870], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [3.6626e-07, 1.2063e-06]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [3.8018e-06, 5.1236e-08]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.0362, 4.4534], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.8869e-06],
+         [5.1035e-06, 1.0000e+00]],
+
+        [[1.5479e-06, 9.9999e-01],
+         [1.0000e+00, 5.4386e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0644,  8.3152], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.0043e-09],
+         [8.7631e-06, 1.0000e+00]],
+
+        [[9.9634e-06, 9.9999e-01],
+         [9.9999e-01, 8.6141e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.3101,  7.5780], requires_grad=True)], [0.48, tensor([[[2.0948e-06, 7.5372e-06],
+         [1.0000e+00, 9.9999e-01]],
+
+        [[1.0000e+00, 6.6525e-06],
+         [3.0611e-07, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([6.4180, 5.2374], requires_grad=True)], [0.48, tensor([[[9.9999e-01, 3.5124e-07],
+         [5.1463e-06, 1.0000e+00]],
+
+        [[1.4081e-04, 2.5443e-07],
+         [9.9986e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.8377,  4.9864], requires_grad=True)], [0.68, tensor([[[1.2782e-07, 1.6430e-06],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[9.9996e-01, 9.9973e-01],
+         [4.0402e-05, 2.7140e-04]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.8334,  4.3241], requires_grad=True)], [0.52, tensor([[[1.5854e-06, 1.0000e+00],
+         [1.0000e+00, 1.8948e-06]],
+
+        [[1.0000e+00, 7.8824e-12],
+         [1.1691e-08, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.1630, -4.6005], requires_grad=True)], [0.68, tensor([[[1.5465e-06, 1.0000e+00],
+         [1.0000e+00, 3.1511e-07]],
+
+        [[3.2588e-06, 3.7232e-05],
+         [1.0000e+00, 9.9996e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.1131, -4.9260], requires_grad=True)], [0.48, tensor([[[7.3768e-06, 1.0000e+00],
+         [9.9999e-01, 8.8160e-14]],
+
+        [[4.3841e-12, 1.0000e+00],
+         [1.0000e+00, 3.8818e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.2412, 4.6702], requires_grad=True)], [0.48, tensor([[[9.9999e-01, 9.9999e-01],
+         [5.9860e-06, 8.0099e-06]],
+
+        [[1.0000e+00, 2.5454e-03],
+         [3.7534e-07, 9.9745e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.2233, -6.0690], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 1.0000e+00],
+         [2.2413e-06, 1.7971e-06]],
+
+        [[1.0000e+00, 9.9996e-01],
+         [1.7721e-08, 3.6778e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.1753, 3.8077], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 1.7003e-06],
+         [5.5867e-06, 1.0000e+00]],
+
+        [[3.2660e-07, 9.9999e-01],
+         [1.0000e+00, 5.2410e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9277,  8.3416], requires_grad=True)], [0.48, tensor([[[9.9999e-01, 9.9998e-01],
+         [1.0880e-05, 2.4537e-05]],
+
+        [[1.0000e+00, 2.1337e-04],
+         [2.5667e-07, 9.9979e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.0687, -5.4518], requires_grad=True)], [0.48, tensor([[[9.9996e-01, 1.0000e+00],
+         [4.0423e-05, 3.2148e-06]],
+
+        [[4.7082e-06, 1.3865e-06],
+         [1.0000e+00, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.5962, 4.6760], requires_grad=True)], [0.48, tensor([[[1.9578e-06, 9.9999e-01],
+         [1.0000e+00, 7.5187e-06]],
+
+        [[1.0000e+00, 1.0000e+00],
+         [2.7026e-09, 9.8302e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.9595, 5.1809], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 4.2817e-06],
+         [5.8312e-06, 1.0000e+00]],
+
+        [[6.4282e-06, 9.9999e-01],
+         [9.9999e-01, 4.9795e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.9304,  8.0819], requires_grad=True)], [0.52, tensor([[[1.0000e+00, 1.0000e+00],
+         [1.8289e-06, 1.1156e-06]],
+
+        [[2.8633e-03, 1.5569e-05],
+         [9.9714e-01, 9.9998e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.2564, -3.9268], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.8286e-06],
+         [3.4670e-06, 1.0000e+00]],
+
+        [[5.1546e-06, 1.0000e+00],
+         [9.9999e-01, 3.0086e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.2036,  8.3471], requires_grad=True)], [1.0, tensor([[[9.9999e-01, 2.3381e-06],
+         [4.9806e-06, 1.0000e+00]],
+
+        [[1.3254e-06, 9.9999e-01],
+         [1.0000e+00, 5.3123e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0845,  8.3596], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7245e-06],
+         [4.9421e-06, 1.0000e+00]],
+
+        [[5.0287e-06, 9.9999e-01],
+         [9.9999e-01, 5.2551e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0956,  8.5204], requires_grad=True)], [0.52, tensor([[[9.9992e-01, 1.0000e+00],
+         [8.3848e-05, 2.2880e-06]],
+
+        [[8.9901e-10, 9.9999e-01],
+         [1.0000e+00, 1.0661e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-4.9678, -3.4832], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7093e-06],
+         [1.4657e-06, 1.0000e+00]],
+
+        [[4.9778e-06, 1.0000e+00],
+         [9.9999e-01, 2.4310e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0807,  8.3831], requires_grad=True)], [0.48, tensor([[[6.2901e-06, 1.0000e+00],
+         [9.9999e-01, 4.2892e-06]],
+
+        [[2.4919e-06, 1.0000e+00],
+         [1.0000e+00, 3.2764e-12]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.5824, 5.0627], requires_grad=True)], [0.48, tensor([[[8.7226e-07, 3.8106e-07],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[4.7020e-07, 1.0000e+00],
+         [1.0000e+00, 6.3187e-07]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([4.8879, 4.8695], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7348e-06],
+         [4.9375e-06, 1.0000e+00]],
+
+        [[5.0344e-06, 9.9999e-01],
+         [9.9999e-01, 5.2601e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0806,  8.3620], requires_grad=True)], [0.48, tensor([[[1.0000e+00, 9.9999e-01],
+         [7.4936e-07, 5.9452e-06]],
+
+        [[9.9997e-01, 5.7843e-06],
+         [2.8559e-05, 9.9999e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.5187, -6.4201], requires_grad=True)], [1.0, tensor([[[9.9998e-01, 5.6904e-06],
+         [1.6439e-05, 9.9999e-01]],
+
+        [[4.1996e-06, 9.9999e-01],
+         [1.0000e+00, 6.1495e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-7.0055,  7.1364], requires_grad=True)], [0.52, tensor([[[3.3290e-05, 2.1205e-04],
+         [9.9997e-01, 9.9979e-01]],
+
+        [[1.0000e+00, 6.7937e-10],
+         [2.0144e-07, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-3.7024, -4.5322], requires_grad=True)], [0.68, tensor([[[1.5418e-06, 1.0000e+00],
+         [1.0000e+00, 2.3424e-07]],
+
+        [[2.1460e-06, 6.3624e-07],
+         [1.0000e+00, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 5.3757, -4.9021], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6687e-06],
+         [4.9438e-06, 1.0000e+00]],
+
+        [[1.9984e-06, 9.9999e-01],
+         [1.0000e+00, 5.2550e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0827,  8.3575], requires_grad=True)], [0.48, tensor([[[6.8446e-07, 9.9518e-07],
+         [1.0000e+00, 1.0000e+00]],
+
+        [[1.0937e-03, 2.7856e-06],
+         [9.9891e-01, 1.0000e+00]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.4037,  5.1483], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.5543e-06],
+         [2.4654e-07, 1.0000e+00]],
+
+        [[1.4893e-06, 9.9999e-01],
+         [1.0000e+00, 5.2474e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.0665,  8.4525], requires_grad=True)], [0.48, tensor([[[2.0730e-06, 1.0000e+00],
+         [1.0000e+00, 4.7334e-06]],
+
+        [[1.0000e+00, 9.9999e-01],
+         [3.9301e-07, 1.0829e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.0541, 4.9553], requires_grad=True)], [0.48, tensor([[[9.9999e-01, 4.1433e-16],
+         [1.0522e-05, 1.0000e+00]],
+
+        [[9.0423e-06, 1.6661e-05],
+         [9.9999e-01, 9.9998e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-3.3670,  5.1937], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.7028e-06],
+         [1.6232e-06, 1.0000e+00]],
+
+        [[4.9993e-06, 9.9999e-01],
+         [9.9999e-01, 5.2222e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1603,  8.3950], requires_grad=True)], [0.48, tensor([[[4.1410e-06, 1.0000e+00],
+         [1.0000e+00, 2.6015e-06]],
+
+        [[1.0000e+00, 9.9998e-01],
+         [3.6142e-07, 1.5289e-05]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([5.0180, 4.8130], requires_grad=True)], [0.68, tensor([[[1.0000e+00, 1.0000e+00],
+         [8.7790e-07, 2.9087e-06]],
+
+        [[8.3319e-06, 7.3909e-03],
+         [9.9999e-01, 9.9261e-01]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([ 4.7549, -4.4701], requires_grad=True)], [0.52, tensor([[[1.8754e-11, 1.0000e+00],
+         [1.0000e+00, 2.9245e-08]],
+
+        [[6.4872e-13, 1.0000e+00],
+         [1.0000e+00, 2.7277e-11]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-5.1130, -4.5184], requires_grad=True)], [1.0, tensor([[[1.0000e+00, 4.6954e-06],
+         [4.8982e-06, 1.0000e+00]],
+
+        [[4.9877e-06, 9.9999e-01],
+         [9.9999e-01, 5.2119e-06]]], grad_fn=<SoftmaxBackward>), Parameter containing:
+tensor([-8.1172,  8.3708], requires_grad=True)]]
