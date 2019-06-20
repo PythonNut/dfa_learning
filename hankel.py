@@ -29,7 +29,7 @@ def hankel(s):
 
     # add the value i+EPSILON to the key unique_prefixes[i] to account for epsilon, empty string. 
     # we want easy access to where we should put values in our hankel matrix; hence, 
-    # the dictionary with the word as the key and the index as the value
+    # the dictionary with the word as the key and the index as the value accounting for epsilon at index 0
     for i in range(len(unique_prefixes)):
         pd[unique_prefixes[i]] = i+EPSILON
     for i in range(len(unique_suffixes)):
@@ -43,8 +43,10 @@ def hankel(s):
             hankel_matrix[0][sd[p[0]]] += decimal
         else:
             hankel_matrix[pd[p[0]]][sd[p[1]]] += decimal
-    return (unique_prefixes,
-    unique_suffixes,
+
+    
+    return (["epsilon"] + unique_prefixes,
+   ["epsilon"] + unique_suffixes,
     hankel_matrix)
 
 # from stack overflow by johnLate 
