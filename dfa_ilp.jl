@@ -64,8 +64,8 @@ end
 
 num_p, num_s = length(prefixes), length(suffixes)
 
-mask = falses(num_p, num_s)
-dmap = BitArray(undef, num_p, num_s)
+mask = falses(num_s, num_p)
+dmap = BitArray(undef, num_s, num_p)
 
 for (seq, result) in train
     for cut in 0:length(seq)
@@ -73,8 +73,8 @@ for (seq, result) in train
         suffix = seq[cut+1:end]
         pi = findfirst(isequal(prefix), prefixes)
         si = findfirst(isequal(suffix), suffixes)
-        dmap[pi, si] = result
-        mask[pi, si] = true
+        dmap[si, pi] = result
+        mask[si, pi] = true
     end
 end
 
@@ -84,7 +84,7 @@ end
 G = SimpleGraph(num_p)
 
 for (i, j) in subsets(1:num_p, 2)
-    if any((mask[i, :] .& mask[j, :]).*(dmap[i, :] .!= dmap[j, :]))
+    if any((mask[:, i] .& mask[:, j]).*(dmap[:, i] .!= dmap[:, j]))
         add_edge!(G, i, j)
     end
 end
