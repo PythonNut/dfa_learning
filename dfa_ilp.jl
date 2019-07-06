@@ -256,26 +256,6 @@ function min_color3(G::SimpleGraph)
 end
 
 # Try generating suffix constraints
-suffix_nodes = UniqueVector([])
-suffix_constraints = Set{Tuple{Int, Int}}()
-
-
-for (i, suffix) in enumerate(suffixes)
-    for (p1, p2) in subsets(collect(keys(suffix_map[i])), 2)
-        p1s = findfirst(isequal(tuple(prefixes[p1]..., suffix...)), prefixes)
-        p2s = findfirst(isequal(tuple(prefixes[p2]..., suffix...)), prefixes)
-        pi = findfirst!(isequal(Set([p1, p2])), suffix_nodes)
-        si = findfirst!(isequal(Set([p1s, p2s])), suffix_nodes)
-        push!(suffix_constraints, (pi, si))
-
-    end
-end
-
-S = SimpleDiGraph(length(suffix_nodes))
-for c in suffix_constraints
-    add_edge!(S, c...)
-end
-
 suffix_ϵ = findfirst(isequal(()), suffixes)
 suffix_sets = Dict(k=>v for (k, v) in suffix_map if length(v) > 1 && k != suffix_ϵ)
 suffix_keys = UniqueVector(keys(suffix_sets))
