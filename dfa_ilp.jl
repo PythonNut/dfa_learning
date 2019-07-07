@@ -40,6 +40,7 @@ for l in 1:10
     end
 end
 
+@printf("Given %d training examples\n", length(train))
 
 # Section 3: Build the prefix map
 
@@ -78,6 +79,9 @@ for (seq, result) in train
     end
 end
 
+
+@printf("Extracted %d prefixes\n", length(prefixes))
+
 # Section 4: Build the distinguishability graph
 
 # G = IntGraph(num_p)
@@ -88,6 +92,8 @@ for (i, j) in subsets(1:num_p, 2)
         add_edge!(G, i, j)
     end
 end
+
+@printf("Found %d inequality constraints\n", ne(G))
 
 # Section 5: Color the graph
 
@@ -264,6 +270,8 @@ suffix_keys = UniqueVector(keys(suffix_sets))
 cliques = maximal_cliques(G)
 clique = cliques[findmax(length.(cliques))[2]]
 
+@printf("Found inequality clique of size %d\n", length(clique))
+
 VV = vertices(G)
 EE = edges(G)
 n = nv(G)
@@ -276,6 +284,8 @@ dgc = LightGraphs.degree_greedy_color(G)
 if dgc.num_colors <= h
     h = dgc.num_colors
 end
+
+@printf("Found greedy coloring with %d colors\n", h)
 
 err_msg = "This graph is not $(h) colorable"
 
