@@ -4,6 +4,11 @@ using DataStructures
 using UniqueVectors
 using IterTools
 using Printf
+using JuMP
+using Gurobi
+
+include("MOI_wrapper.jl")
+include("abbadingo.jl")
 
 function array_mod(a, base, mod)
     result = 0
@@ -23,7 +28,11 @@ function wfa_eval(a1, a∞, A, s)
     return reduce(*, [a1', (A[c + 1] for c in s)..., a∞])
 end
 
-function min_color(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num_colors)
+function min_color(
+    G::SimpleGraph,
+    h=LightGraphs.random_greedy_color(G, 100).num_colors,
+    MOD=Model(with_optimizer(NaPS.Optimizer))
+)
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
@@ -32,7 +41,7 @@ function min_color(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num
     err_msg = "This graph is not $(h) colorable"
 
     # MOD = Model(with_optimizer(Cbc.Optimizer; logLevel=1, threads=Sys.CPU_THREADS))
-    MOD = Model(with_optimizer(Gurobi.Optimizer))
+    # MOD = Model(with_optimizer(Gurobi.Optimizer))
     # MOD = Model(with_optimizer(GLPK.Optimizer, msg_lev=GLPK.MSG_ON))
 
     @variable(MOD, x[VV,1:h], Bin)
@@ -80,13 +89,13 @@ function min_color(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num
     return result
 end
 
-function max_indep_set(G::SimpleGraph)
+function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
     m = ne(G)
 
-    MOD = Model(with_optimizer(Gurobi.Optimizer))
+    # MOD = Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3))
     # MOD = Model(with_optimizer(Cbc.Optimizer; logLevel=3, threads=Sys.CPU_THREADS))
     @variable(MOD, x[VV],Bin)
     for e in EE
@@ -102,8 +111,8 @@ function max_indep_set(G::SimpleGraph)
     return A
 end
 
-function max_clique(G::SimpleGraph)
-    return max_indep_set(LightGraphs.complement(G))
+function max_clique(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3)))
+    return max_indep_set(LightGraphs.complement(G), MOD)
 end
 
 
@@ -113,7 +122,48 @@ function max_clique2(G)
     return clique
 end
 
-function min_color3(G::SimpleGraph)
+function min_color2(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num_colors)
+    VV = vertices(G)
+    EE = edges(G)
+    n = nv(G)
+    m = ne(G)
+
+    err_msg = "This graph is not $(h) colorable"
+
+    # MOD = Model(with_optimizer(Cbc.Optimizer; logLevel=1, threads=Sys.CPU_THREADS))
+    MOD = Model(with_optimizer(NaPS.Optimizer))
+
+    @variable(MOD, y[1:h,VV], Bin)
+    @variable(MOD, z[VV,1:h], Bin)
+
+    # q=VV[rand(1:end)]
+    q=VV[1]
+
+    @constraint(MOD, z[:,1] .== 0)
+    @constraint(MOD, y[h,:] .== 0)
+
+    for v in VV
+        for i in 1:h-1
+            @constraint(MOD, y[i,v] - y[i+1,v] >= 0)
+            @constraint(MOD, y[i,v] + z[v,i+1] == 1)
+            @constraint(MOD, y[i,q] - y[i,v] >= 0)
+        end
+    end
+
+    for e in EE
+        for i in 1:h
+            @constraint(MOD, y[i,e.src] + z[e.src,i] + y[i,e.dst] + z[e.dst,i] >= 1)
+        end
+    end
+
+    @objective(MOD, MOI.MIN_SENSE, sum(y[:,q]))
+
+    optimize!(MOD)
+
+    return value.(y), value.(z)
+end
+
+function min_color3(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
@@ -129,7 +179,7 @@ function min_color3(G::SimpleGraph)
 
     err_msg = "This graph is not $(h) colorable"
 
-    MOD = Model(with_optimizer(Gurobi.Optimizer))
+    # MOD = Model(with_optimizer(Gurobi.Optimizer))
 
     @variable(MOD, x[VV,1:h], Bin)
     @variable(MOD, w[1:h], Bin)
