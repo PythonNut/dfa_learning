@@ -1,6 +1,7 @@
 module NaPS
 
 using MathOptInterface
+using Printf
 const MOI = MathOptInterface
 const CI = MOI.ConstraintIndex
 const VI = MOI.VariableIndex
@@ -40,17 +41,28 @@ mutable struct ConstraintData
     end
 end
 
+const SOLVERS = Dict(
+    :naps => ("./naps/naps", [], false, false),
+    :openwbo => ("./open-wbo/open-wbo", ["-formula=1"], true, false),
+    :roundingsat => ("./roundingsat/roundingsat", [], true, true)
+)
+
 mutable struct Optimizer <: MOI.AbstractOptimizer
     constraints::ConstraintData
     data::Union{Nothing, ModelData} # only non-Nothing between MOI.copy_to and MOI.optimize!
     sol::Solution
-    options
-    function Optimizer(; kwargs...)
-        new(ConstraintData(), nothing, Solution(), kwargs)
+    cmd::String
+    opts::Vector{String}
+    use_short_eq::Bool
+    use_ge::Bool
+    fname::Union{Nothing, String}
+    function Optimizer(solver=:naps, fname=nothing)
+        cmd, opts, use_short_eq, use_ge = SOLVERS[solver]
+        new(ConstraintData(), nothing, Solution(), cmd, opts, use_short_eq, use_ge, fname)
     end
 end
 
-MOI.get(::Optimizer, ::MOI.SolverName) = "NaPS"
+MOI.get(::Optimizer, ::MOI.SolverName) = "Generic Psuedo Boolean Solver"
 
 function MOI.is_empty(instance::Optimizer)
     instance.data === nothing
@@ -155,6 +167,7 @@ end
 function MOIU.allocate(instance::Optimizer, ::MOI.ObjectiveSense, sense::MOI.OptimizationSense)
     @assert sense == MOI.MIN_SENSE
 end
+
 function MOIU.allocate(::Optimizer, ::MOI.ObjectiveFunction,
                        ::MOI.Union{MOI.SingleVariable,
                                    MOI.ScalarAffineFunction{Float64}})
@@ -163,6 +176,7 @@ end
 
 function MOIU.load(::Optimizer, ::MOI.ObjectiveSense, ::MOI.OptimizationSense)
 end
+
 function MOIU.load(optimizer::Optimizer, ::MOI.ObjectiveFunction,
                    f::MOI.SingleVariable)
     MOIU.load(optimizer,
@@ -191,6 +205,14 @@ function pb_format_eq(f::PBTerm)
     return pb_format_term(f) * " == $(-f.constant) ;"
 end
 
+function pb_format_e(f::PBTerm)
+    return pb_format_term(f) * " = $(-f.constant) ;"
+end
+
+function pb_format_ge(f::PBTerm)
+    return pb_format_term(-f) * " >= $(f.constant) ;"
+end
+
 function pb_format_le(f::PBTerm)
     return pb_format_term(f) * " <= $(-f.constant) ;"
 end
@@ -209,26 +231,39 @@ function MOI.optimize!(instance::Optimizer)
         error("All variables must be binary to use NaPS")
     end
 
-
-    mktemp() do path, io
+    function worker(path, io)
+        @printf(io, "* #variable= %d #constraint= %d\n", instance.data.n, instance.data.m)
         println(io, pb_format_objective(instance.data.objective))
 
-        for f in instance.data.eq
-            println(io, pb_format_eq(f))
+        if instance.use_short_eq
+            for f in instance.data.eq
+                println(io, pb_format_e(f))
+            end
+        else
+            for f in instance.data.eq
+                println(io, pb_format_eq(f))
+            end
         end
 
-        for f in instance.data.le
-            println(io, pb_format_le(f))
+        if instance.use_ge
+            for f in instance.data.le
+                println(io, pb_format_ge(f))
+            end
+        else
+
+            for f in instance.data.le
+                println(io, pb_format_le(f))
+            end
         end
 
         flush(io)
 
-        NAPS_PATH = `./naps/naps $(path)`
+        cmd = `$(instance.cmd) $(instance.opts) $(path)`
 
         inp = Pipe()
         out = Pipe()
         err = Pipe()
-        process = run(pipeline(NAPS_PATH, stdin=inp, stdout=out, stderr=err), wait=false)
+        process = run(pipeline(cmd, stdin=inp, stdout=out, stderr=out), wait=false)
 
         close(out.in)
         close(err.in)
@@ -283,6 +318,18 @@ function MOI.optimize!(instance::Optimizer)
 
         instance.sol = Solution(status, flat, optimum)
     end
+
+
+    if instance.fname == nothing
+        mktemp() do path, io
+            worker(path, io)
+        end
+    else
+        open(instance.fname, "w") do io
+            worker(instance.fname, io)
+        end
+    end
+
 end
 
 # Implements getter for result value and statuses
