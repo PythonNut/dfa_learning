@@ -1,11 +1,11 @@
 import networkx as nx
-from pysat.solvers import Glucose4
+from pysat.solvers import *
 from pysat.card import *
 from collections import defaultdict
 import itertools as it
 import numpy as np
 import operator as op
-from functools import reduce
+from functools import reduce, partial
 
 def read_dct(fname):
     results = []
@@ -96,14 +96,18 @@ class VariableDispenser(object):
         return self.offset - 1
 
     def unflatten(self, flat):
-        assert len(flat) == self.size()
+        assert len(flat) <= self.size()
         results = []
         i = 0
         for v in self.variables:
             A = np.zeros(v.shape, np.bool)
             for _ in range(v.size()):
                 i += 1
-                A[v(i)] = flat[i-1] > 0
+                j = v(i)
+                if i > len(flat):
+                    A[j] = False
+                else:
+                    A[v(i)] = flat[i-1] > 0
             results.append(A)
 
         return results
@@ -126,8 +130,13 @@ def min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
     assert x[n-1, h-1] == y[0, 0, 0] - 1
     assert y[s-1, h-1, h-1] == z[0] - 1
 
+    # for v in VV:
+    #     M.add_clause(x[v, i] for i in range(h))
+
     for v in VV:
-        M.add_clause(x[v, i] for i in range(h))
+        cnf = CardEnc.equals(lits=[x[v, i] for i in range(h)], encoding=EncType.pairwise)
+        for c in cnf.clauses:
+            M.add_clause(c)
 
     for pi, p in enumerate(prefixes_f):
         for l in range(len(sigma)):
@@ -139,9 +148,14 @@ def min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
                         M.add_clause((y[l, i, j], -x[pi, i], -x[ci, j]))
                         M.add_clause((-y[l, i, j], -x[pi, i], x[ci, j]))
 
-    for l, i, j, k in it.product(range(len(sigma)), *[range(h)]*3):
-        if j < k:
-            M.add_clause((-y[l, i, j], -y[l, i, k]))
+    # for l, i, j, k in it.product(range(len(sigma)), *[range(h)]*3):
+    #     if j < k:
+    #         M.add_clause((-y[l, i, j], -y[l, i, k]))
+
+    for l, i in it.product(range(len(sigma)), range(h)):
+        cnf = CardEnc.equals(lits=[y[l, i, j] for j in range(h)], encoding=EncType.pairwise)
+        for c in cnf.clauses:
+            M.add_clause(c)
 
     for (seq, accept) in train:
         pi = prefixes_r[seq]
@@ -151,20 +165,122 @@ def min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
             else:
                 M.add_clause((-x[pi, i], -z[i]))
 
+    for u, v in EE:
+        for i in range(h):
+            M.add_clause((-x[u, i], -x[v, i]))
+
     return M
 
+def break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, h):
+    x, y, z = V.variables
+    s = len(sigma)
+
+    p = V.dispense((h, h))
+    t = V.dispense((h, h))
+
+    epsilon_i = prefixes_r[()]
+    assert epsilon_i == 0
+    M.add_clause((x[epsilon_i, 0],))
+
+    for i, j in it.combinations(range(h), 2):
+        M.add_clause(it.chain((-t[i, j],), (y[l, i, j] for l in range(s))))
+        for l in range(s):
+            M.add_clause((-y[l, i, j], t[i, j]))
+
+        M.add_clause((-p[j, i], t[i, j]))
+        M.add_clause(it.chain((-t[i, j], p[j, i]), (t[k, j] for k in range(i))))
+
+    for k, i, j in it.combinations(range(h), 3):
+        M.add_clause((-p[j, i], -t[k, j]))
+
+    for j in range(1, h):
+        M.add_clause(p[j, i] for i in range(j))
+
+    assert s == 2
+
+    for k, i, j in it.combinations(range(h-1), 3):
+        M.add_clause((-p[j, i], -p[j+1, k]))
+
+    return M
+
+def greedy_clique(G):
+    deg = G.degree()
+    clique = set([max(deg, key=op.itemgetter(1))[0]])
+    while True:
+        common = reduce(op.and_, (set(G[v]) for v in clique))
+        if not common:
+            break
+
+        clique.add(
+            max(common, key=partial(op.getitem, deg))
+        )
+
+    return clique
+
+def dfa_clique_approx(G, train, prefixes_r):
+    pos = [prefixes_r[seq] for seq, accept in train if accept == 1]
+    neg = [prefixes_r[seq] for seq, accept in train if accept == 0]
+    posG, negG = G.subgraph(pos), G.subgraph(neg)
+    pnC =  greedy_clique(posG) | greedy_clique(negG)
+    allC = greedy_clique(G)
+
+    return max(pnC, allC, key=len)
+
+def extract_dfa(M, V, sigma, prefixes_r):
+    x, y, z, *_ = V.unflatten(M.get_model())
+    epsilon_i = prefixes_r[()]
+    A = [y[l, :, :].astype(int) for l in range(len(sigma))]
+    q1 = x[epsilon_i, :].astype(int)
+    return q1, z.astype(int), A
+
+def dfa_eval(dfa, seq, sigma):
+    q1, qinf, A = dfa
+    sigma_r = {s: i for i, s in enumerate(sigma)}
+    return reduce(op.matmul, it.chain(
+        (q1.transpose(),),
+        (A[sigma_r[s]] for s in seq),
+        (qinf,)
+    ))
+
 if __name__ == '__main__':
-    train = read_dct('dcts/dfa_8_states_try_1.dct')
+    train = read_dct('dcts/dfa_12_try_5.dct')
     prefixes_f, prefixes_r, suffixes_f, suffixes_r = enumerate_fixes(train)
     G  = build_distinguishability_graph(train, prefixes_r, suffixes_r)
 
-    V = VariableDispenser()
+    sigma = range(2)
 
-    M = Glucose4()
-    M = min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, range(2), 8)
+    states = len(dfa_clique_approx(G, train, prefixes_r))
+    state_limit = 100
 
-    print(f"Starting solver: {M.nof_vars()} vars, {M.nof_clauses()} clauses")
+    total_time = 0
 
-    assert M.solve()
+    while True:
+        V = VariableDispenser()
+        M = Glucose4(use_timer=True) # Glucose4(use_timer=True)
 
-    x, y, z = V.unflatten(M.get_model())
+        print(f'Building problem for {states} states')
+        min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, states)
+        break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, states)
+
+        print(f'Starting solver: {M.nof_vars()} vars, {M.nof_clauses()} clauses')
+
+        solve = M.solve()
+
+        time = M.time()
+        total_time += time
+        print(f'Took {time} seconds')
+
+        if solve:
+            break
+        else:
+            M.delete()
+
+        states += 1
+        if states > state_limit: break
+
+    print(f'Found solution with {states} states!')
+    print(f'Took {total_time} seconds')
+
+    dfa = extract_dfa(M, V, sigma, prefixes_r)
+
+    assert all([dfa_eval(dfa, seq, range(2)) == accept for seq, accept in train])
