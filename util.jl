@@ -122,7 +122,7 @@ function max_clique2(G)
     return clique
 end
 
-function min_color2(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num_colors)
+function min_color_pop(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num_colors)
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
@@ -163,7 +163,50 @@ function min_color2(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).nu
     return value.(y), value.(z)
 end
 
-function min_color3(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer)))
+function min_color_pop2(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100).num_colors)
+    VV = vertices(G)
+    EE = edges(G)
+    n = nv(G)
+    m = ne(G)
+
+    err_msg = "This graph is not $(h) colorable"
+
+    # MOD = Model(with_optimizer(Cbc.Optimizer; logLevel=1, threads=Sys.CPU_THREADS))
+    MOD = Model(with_optimizer(NaPS.Optimizer))
+
+
+    # q=VV[rand(1:end)]
+    q=VV[1]
+
+    @constraint(MOD, d[:,1] .== 0)
+    @constraint(MOD, w[h,:] .== 0)
+
+    for v in VV
+        for i in 1:h-1
+            @constraint(MOD, w[i,v] - w[i+1,v] >= 0)
+            @constraint(MOD, w[i,v] + d[v,i+1] == 1)
+            @constraint(MOD, w[i,q] - w[i,v] >= 0)
+        end
+
+        for i in 1:h
+            @constraint(MOD, x[v,i] .== 1 - w[i, v] - d[v, i])
+        end
+    end
+
+    for e in EE
+        for i=1:h
+            @constraint(MOD, x[e.src,i] + x[e.dst,i] <= 1)
+        end
+    end
+
+    @objective(MOD, MOI.MIN_SENSE, sum(w[:,q]))
+
+    optimize!(MOD)
+
+    return value.(w), value.(d)
+end
+
+function min_color2(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
