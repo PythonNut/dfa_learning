@@ -117,13 +117,18 @@ function min_dfa_setup_model!(MOD, train, prefixes, G, Σ, h)
             ci = findfirst(isequal(tuple(p..., Σ[l])), prefixes)
             if !isnothing(ci)
                 for j in 1:h
-                    @constraint(MOD, sum(y[l, j, :]) == w[j])
                     for k in 1:h
-                        @constraint(MOD, y[l, j, k] >= x[pi, j] + x[ci, k] - 1)
-                        @constraint(MOD, x[ci, k] >= x[pi, j] + y[l, j, k] - 1)
+                        @constraint(MOD, y[l, j, k] - x[ci, k] >= x[pi, j] - 1)
+                        @constraint(MOD, x[ci, k] - y[l, j, k] >= x[pi, j] - 1)
                     end
                 end
             end
+        end
+    end
+
+    for l in 1:s
+        for j in 1:h
+            @constraint(MOD, sum(y[l, j, :]) == w[j])
         end
     end
 
@@ -170,8 +175,8 @@ function min_dfa_setup_model2!(MOD, train, prefixes, G, Σ, h)
                 for j in 1:h
                     @constraint(MOD, sum(y[l, j, :]) == 1)
                     for k in 1:h
-                        @constraint(MOD, y[l, j, k] >= x[pi, j] + x[ci, k] - 1)
-                        @constraint(MOD, x[ci, k] >= x[pi, j] + y[l, j, k] - 1)
+                        @constraint(MOD, y[l, j, k] - x[ci, k] >= x[pi, j] - 1)
+                        @constraint(MOD, x[ci, k] - y[l, j, k] >= x[pi, j] - 1)
                     end
                 end
             end
@@ -264,7 +269,6 @@ function break_dfa_symmetry_bfs2!(MOD, Σ, prefixes, h)
         # @constraint(MOD, 0 <= s*t[i, j] - sum(y[1:s, i, j]) <= s-1)
         @constraint(MOD, t[i, j] <= sum(y[1:s, i, j]))
         @constraint(MOD, y[1:s, i, j] .<= t[i, j])
-
 
         # @constraint(MOD, 1-i <= t[i, j] - sum(t[1:i-1, j]) - i*p[j,i] <= 0)
         @constraint(MOD, p[j, i] <= t[i, j])
