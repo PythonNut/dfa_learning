@@ -96,6 +96,9 @@ class VariableDispenser(object):
     def size(self):
         return self.offset - 1
 
+    def top_var(self):
+        return self.size()
+
     def unflatten(self, flat):
         assert len(flat) <= self.size()
         results = []
@@ -113,7 +116,20 @@ class VariableDispenser(object):
 
         return results
 
+def add_equals_1(M, V, lits):
+    top_id = V.top_var()
+    encoding = EncType.seqcounter
+    if len(lits) <= 6:
+        encoding = EncType.pairwise
 
+    cnf = CardEnc.equals(
+        lits=lits, encoding=encoding,
+        top_id=top_id
+    )
+    new_vars = cnf.nv - top_id
+    if new_vars > 0:
+        V.dispense((new_vars,))
+    M.append_formula(cnf)
 
 def min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
     VV = G.nodes
@@ -127,23 +143,8 @@ def min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
     y = V.dispense((s, h, h))
     z = V.dispense((h,))
 
-    assert x[0, 0] == 1
-    assert x[n-1, h-1] == y[0, 0, 0] - 1
-    assert y[s-1, h-1, h-1] == z[0] - 1
-
-    # for v in VV:
-    #     M.add_clause(x[v, i] for i in range(h))
-
-    # for v in VV:
-    #     cnf = CardEnc.equals(lits=[x[v, i] for i in range(h)], encoding=EncType.pairwise)
-    #     for c in cnf.clauses:
-    #         M.add_clause(c)
-
     for v in VV:
-        cnf = CardEnc.equals(lits=[x[v, i] for i in range(h)], encoding=EncType.pairwise)
-        M.append_formula(cnf)
-        # for c in cnf.clauses:
-        #     M.add_clause(c)
+        add_equals_1(M, V, [x[v, i] for i in range(h)])
 
     for pi, p in enumerate(prefixes_f):
         for l in range(len(sigma)):
@@ -155,15 +156,8 @@ def min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
                         M.add_clause((y[l, i, j], -x[pi, i], -x[ci, j]))
                         M.add_clause((-y[l, i, j], -x[pi, i], x[ci, j]))
 
-    # for l, i, j, k in it.product(range(len(sigma)), *[range(h)]*3):
-    #     if j < k:
-    #         M.add_clause((-y[l, i, j], -y[l, i, k]))
-
     for l, i in it.product(range(len(sigma)), range(h)):
-        cnf = CardEnc.equals(lits=[y[l, i, j] for j in range(h)], encoding=EncType.pairwise)
-        M.append_formula(cnf)
-        # for c in cnf.clauses:
-        #     M.add_clause(c)
+        add_equals_1(M, V, [y[l, i, j] for j in range(h)])
 
     for (seq, accept) in train:
         pi = prefixes_r[seq]
@@ -188,7 +182,6 @@ def min_dfa_setup_model_pop(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
 
     a = V.dispense((h, n))
     b = V.dispense((n, h))
-    # x = V.dispense((n, h))
     y = V.dispense((s, h, h))
     z = V.dispense((h,))
 
@@ -197,10 +190,6 @@ def min_dfa_setup_model_pop(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
     for v in VV:
         M.add_clause((-b[v, 0],))
         M.add_clause((-a[h-1, v],))
-
-        # for i in range(h):
-        #     cnf = CardEnc.equals(lits=(x[v, i], a[i, v], b[v, i]), encoding=EncType.pairwise)
-        #     M.append_formula(cnf)
 
         for i in range(h-1):
             M.add_clause((-a[i+1, v], a[i, v]))
@@ -222,8 +211,7 @@ def min_dfa_setup_model_pop(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
                         M.add_clause((-y[l, i, j], a[i, pi], b[pi, i], -b[ci, j]))
 
     for l, i in it.product(range(len(sigma)), range(h)):
-        cnf = CardEnc.equals(lits=[y[l, i, j] for j in range(h)], encoding=EncType.pairwise)
-        M.append_formula(cnf)
+        add_equals_1(M, V, [y[l, i, j] for j in range(h)])
 
     for (seq, accept) in train:
         pi = prefixes_r[seq]
@@ -255,15 +243,13 @@ def min_dfa_setup_model_pop2(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
     q = 0
 
     for v in VV:
-        cnf = CardEnc.equals(lits=[x[v, i] for i in range(h)], encoding=EncType.pairwise)
-        M.append_formula(cnf)
+        add_equals_1(M, V, [x[v, i] for i in range(h)])
 
         M.add_clause((-b[v, 0],))
         M.add_clause((-a[h-1, v],))
 
         for i in range(h):
-            cnf = CardEnc.equals(lits=(x[v, i], a[i, v], b[v, i]), encoding=EncType.pairwise)
-            M.append_formula(cnf)
+            add_equals_1(M, V, (x[v, i], a[i, v], b[v, i]))
 
         for i in range(h-1):
             M.add_clause((-a[i+1, v], a[i, v]))
@@ -284,8 +270,7 @@ def min_dfa_setup_model_pop2(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
                         M.add_clause((-y[l, i, j], -x[pi, i], x[ci, j]))
 
     for l, i in it.product(range(len(sigma)), range(h)):
-        cnf = CardEnc.equals(lits=[y[l, i, j] for j in range(h)], encoding=EncType.pairwise)
-        M.append_formula(cnf)
+        add_equals_1(M, V, [y[l, i, j] for j in range(h)])
 
     for (seq, accept) in train:
         pi = prefixes_r[seq]
@@ -302,7 +287,7 @@ def min_dfa_setup_model_pop2(M, V, train, prefixes_f, prefixes_r, G, sigma, h):
     return M
 
 def break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, h):
-    x, y, z = V.variables
+    x, y, z, *_ = V.variables
     s = len(sigma)
 
     p = V.dispense((h, h))
@@ -356,7 +341,7 @@ def break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, h):
     return M
 
 def break_dfa_symmetry_bfs_pop(M, V, sigma, prefixes_r, h):
-    a, b, y, z = V.variables
+    a, b, y, z, *_ = V.variables
     s = len(sigma)
 
     p = V.dispense((h, h))
@@ -412,7 +397,7 @@ def break_dfa_symmetry_bfs_pop(M, V, sigma, prefixes_r, h):
     return M
 
 def break_dfa_symmetry_bfs_pop2(M, V, sigma, prefixes_r, h):
-    _, _, x, y, z = V.variables
+    _, _, x, y, z, *_ = V.variables
     s = len(sigma)
 
     p = V.dispense((h, h))
@@ -474,8 +459,7 @@ def graph_color_ass(G, h):
     x = V.dispense((n, h))
 
     for v in G.nodes:
-        cnf = CardEnc.equals(lits=[x[v, i] for i in range(h)], encoding=EncType.pairwise)
-        M.append_formula(cnf)
+        add_equals_1(M, V, [x[v, i] for i in range(h)])
 
     for u, v in G.edges:
         for i in range(h):
@@ -541,8 +525,7 @@ def graph_color_pop2(G, h):
         M.add_clause((-y[h-1, v],))
 
         for i in range(h):
-            cnf = CardEnc.equals(lits=(x[v, i], y[i, v], z[v, i]), encoding=EncType.pairwise)
-            M.append_formula(cnf)
+            add_equals_1(M, V, (x[v, i], y[i, v], z[v, i]))
 
         for i in range(h-1):
             M.add_clause((-y[i+1, v], y[i, v]))
@@ -665,7 +648,7 @@ def print_noam(q1, qinf, A, fname='noam.txt'):
         f.writelines([f's{i}:{j}>s{o}\n' for i, l in delta.items() for j,o in enumerate(l)])
 
 if __name__ == '__main__':
-    train = read_dct('dcts/dfa_12_try_8.dct')
+    train = read_dct('dcts/dfa_12_try_6.dct')
     prefixes_f, prefixes_r, suffixes_f, suffixes_r = enumerate_fixes(train)
     G  = build_distinguishability_graph(train, prefixes_r, suffixes_r)
 
@@ -678,11 +661,11 @@ if __name__ == '__main__':
 
     while True:
         V = VariableDispenser()
-        M = MapleChrono(use_timer=True) # Glucose4(use_timer=True)
+        M = Glucose4(use_timer=True) # Glucose4(use_timer=True)
 
         print(f'Building problem for {states} states')
-        min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, states)
-        break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, states)
+        min_dfa_setup_model_pop2(M, V, train, prefixes_f, prefixes_r, G, sigma, states)
+        break_dfa_symmetry_bfs_pop2(M, V, sigma, prefixes_r, states)
 
         print(f'Starting solver: {M.nof_vars()} vars, {M.nof_clauses()} clauses')
 
@@ -703,7 +686,7 @@ if __name__ == '__main__':
     print(f'Found solution with {states} states!')
     print(f'Took {total_time:.4f} seconds')
 
-    dfa = extract_dfa(M, V, sigma, prefixes_r)
+    dfa = extract_dfa_pop2(M, V, sigma, prefixes_r)
 
-    assert is_sorted(bfs_dfa(*dfa)[::1])
+    assert is_sorted(bfs_dfa(*dfa)[::-1])
     assert all([dfa_eval(dfa, seq, range(2)) == accept for seq, accept in train])
