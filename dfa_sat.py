@@ -451,15 +451,16 @@ def break_dfa_symmetry_bfs_pop2(M, V, sigma, prefixes_r, h):
 
     return M
 
-def constrain_early_states_bfs(M, V, train, h, sigma):
+def constrain_early_states_bfs(M, V, prefixes_f, h, sigma):
     s = len(sigma)
     x, *_ = V.variables
 
-    for (seq, accept) in train:
-        l = len(seq)
-        if s**l < h and l > 0:
+    for seq in prefixes_f:
+        l = len(seq) + 1
+        if s**l - 1 < h and l > 1:
             pi = prefixes_r[seq]
-            for i in range(s**l, h):
+            print(seq, s**l - 1)
+            for i in range(s**l - 1, h):
                 M.add_clause((-x[pi, i],))
 
 def graph_color_ass(G, h):
@@ -677,7 +678,6 @@ if __name__ == '__main__':
         print(f'Building problem for {states} states')
         min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, states)
         break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, states)
-        constrain_early_states_bfs(M, V, train, states, sigma)
         print(f'Starting solver: {M.nof_vars()} vars, {M.nof_clauses()} clauses')
 
         solve = M.solve()
