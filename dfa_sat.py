@@ -451,6 +451,17 @@ def break_dfa_symmetry_bfs_pop2(M, V, sigma, prefixes_r, h):
 
     return M
 
+def constrain_early_states_bfs(M, V, train, h, sigma):
+    s = len(sigma)
+    x, *_ = V.variables
+
+    for (seq, accept) in train:
+        l = len(seq)
+        if s**l < h and l > 0:
+            pi = prefixes_r[seq]
+            for i in range(s**l, h):
+                M.add_clause((-x[pi, i],))
+
 def graph_color_ass(G, h):
     M = Glucose4(use_timer=True)
     V = VariableDispenser()
@@ -648,7 +659,7 @@ def print_noam(q1, qinf, A, fname='noam.txt'):
         f.writelines([f's{i}:{j}>s{o}\n' for i, l in delta.items() for j,o in enumerate(l)])
 
 if __name__ == '__main__':
-    train = read_dct('dcts/dfa_12_try_6.dct')
+    train = read_dct('dcts/dfa_12_try_8.dct')
     prefixes_f, prefixes_r, suffixes_f, suffixes_r = enumerate_fixes(train)
     G  = build_distinguishability_graph(train, prefixes_r, suffixes_r)
 
@@ -664,9 +675,9 @@ if __name__ == '__main__':
         M = Glucose4(use_timer=True) # Glucose4(use_timer=True)
 
         print(f'Building problem for {states} states')
-        min_dfa_setup_model_pop2(M, V, train, prefixes_f, prefixes_r, G, sigma, states)
-        break_dfa_symmetry_bfs_pop2(M, V, sigma, prefixes_r, states)
-
+        min_dfa_setup_model(M, V, train, prefixes_f, prefixes_r, G, sigma, states)
+        break_dfa_symmetry_bfs(M, V, sigma, prefixes_r, states)
+        constrain_early_states_bfs(M, V, train, states, sigma)
         print(f'Starting solver: {M.nof_vars()} vars, {M.nof_clauses()} clauses')
 
         solve = M.solve()
@@ -686,7 +697,7 @@ if __name__ == '__main__':
     print(f'Found solution with {states} states!')
     print(f'Took {total_time:.4f} seconds')
 
-    dfa = extract_dfa_pop2(M, V, sigma, prefixes_r)
+    dfa = extract_dfa(M, V, sigma, prefixes_r)
 
-    assert is_sorted(bfs_dfa(*dfa)[::-1])
+    assert is_sorted(bfs_dfa(*dfa)[::1])
     assert all([dfa_eval(dfa, seq, range(2)) == accept for seq, accept in train])
