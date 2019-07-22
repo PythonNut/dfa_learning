@@ -3,12 +3,13 @@ name = "dfa_learning"
 version = "0.1.0"
 description = ""
 authors = ["PythonNut <PythonNut@users.noreply.github.com>"]
-
 [tool.poetry.dependencies]
 python = "^3.7"
 python-sat = {version = "^0.1.1-alpha.3",allows-prereleases = true}
 networkx = "^2.3"
 numpy = "^1.16"
+z3-solver = "^4.8"
+boolexpr = "^2.4"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.6"
