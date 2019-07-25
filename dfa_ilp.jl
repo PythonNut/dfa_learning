@@ -195,6 +195,132 @@ function min_dfa_setup_model2!(MOD, train, prefixes, G, Σ, h)
     end
 end
 
+function min_dfa_setup_model3!(MOD, train, prefixes, G, Σ, h)
+    # require that every state be used
+    VV = vertices(G)
+    EE = edges(G)
+    n = nv(G)
+    m = ne(G)
+    s = length(Σ)
+
+    @variable(MOD, x[VV,1:h], Bin)
+    @variable(MOD, w[1:h], Bin)
+    @variable(MOD, y[1:s, 1:h, 1:h], Bin)
+    @variable(MOD, z[1:h], Bin)
+
+    for v in VV
+        @constraint(MOD, sum(x[v,:]) == 1)
+    end
+
+    for e in EE
+        for i=1:h
+            @constraint(MOD, x[e.src,i] + x[e.dst,i] <= w[i])
+        end
+    end
+
+    for i in 1:h
+        @constraint(MOD, w[i] <= sum(x[:,i]))
+    end
+
+    for i in 2:h
+        @constraint(MOD, w[i] <= w[i-1])
+    end
+
+    for (pi, p) in enumerate(prefixes)
+        for l in 1:s
+            ci = findfirst(isequal(tuple(p..., Σ[l])), prefixes)
+            if !isnothing(ci)
+                for j in 1:h
+                    @constraint(MOD, sum(y[l, j, :]) == 1)
+                    for k in 1:h
+                        @constraint(MOD, y[l, j, k] - x[ci, k] >= x[pi, j] - 1)
+                        @constraint(MOD, x[ci, k] - y[l, j, k] >= x[pi, j] - 1)
+                    end
+                end
+            end
+        end
+    end
+
+    for (seq, label) in train
+        pi = findfirst(isequal(seq), prefixes)
+        for i in 1:h
+            if label == 1
+                @constraint(MOD, x[pi, i] <= z[i])
+            else
+                @constraint(MOD, x[pi, i] <= 1-z[i])
+            end
+        end
+    end
+
+    @objective(MOD, MOI.MIN_SENSE, sum(w))
+end
+
+function min_dfa_setup_model_pop!(MOD, train, prefixes, G, Σ, h)
+    # use the pop2 vertex coloring
+    VV = vertices(G)
+    EE = edges(G)
+    n = nv(G)
+    m = ne(G)
+    s = length(Σ)
+
+    @variable(MOD, w[1:h,VV], Bin)
+    @variable(MOD, d[VV,1:h], Bin)
+    @variable(MOD, x[VV,1:h], Bin)
+    @variable(MOD, y[1:s, 1:h, 1:h], Bin)
+    @variable(MOD, z[1:h], Bin)
+
+    q=1
+
+    @constraint(MOD, d[:,1] .== 0)
+    @constraint(MOD, w[h,:] .== 0)
+
+    for v in VV
+        for i in 1:h-1
+            @constraint(MOD, w[i,v] - w[i+1,v] >= 0)
+            @constraint(MOD, w[i,v] + d[v,i+1] == 1)
+            @constraint(MOD, w[i,q] - w[i,v] >= 0)
+        end
+
+        for i in 1:h
+            @constraint(MOD, x[v,i] .== 1 - w[i, v] - d[v, i])
+        end
+    end
+
+    for e in EE
+        for i=1:h
+            @constraint(MOD, x[e.src,i] + x[e.dst,i] <= 1)
+        end
+    end
+
+    for (pi, p) in enumerate(prefixes)
+        for l in 1:s
+            ci = findfirst(isequal(tuple(p..., Σ[l])), prefixes)
+            if !isnothing(ci)
+                for j in 1:h
+                    @constraint(MOD, sum(y[l, j, :]) == 1)
+                    for k in 1:h
+                        @constraint(MOD, y[l, j, k] - x[ci, k] >= x[pi, j] - 1)
+                        @constraint(MOD, x[ci, k] - y[l, j, k] >= x[pi, j] - 1)
+                    end
+                end
+            end
+        end
+    end
+
+    for (seq, label) in train
+        pi = findfirst(isequal(seq), prefixes)
+        for i in 1:h
+            if label == 1
+                @constraint(MOD, x[pi, i] <= z[i])
+            else
+                @constraint(MOD, x[pi, i] <= 1-z[i])
+            end
+        end
+    end
+
+    @objective(MOD, MOI.MIN_SENSE, sum(w[:,q]))
+end
+
 function break_dfa_symmetry_max_clique!(MOD, clique)
     for (c, v) in enumerate(clique)
         @constraint(MOD, MOD[:x][v, c] == 1)
@@ -308,19 +434,140 @@ function break_dfa_symmetry_bfs2!(MOD, Σ, prefixes, h)
     end
 end
 
+function break_dfa_symmetry_bfs3!(MOD, Σ, prefixes, h)
+    y, w = MOD[:y], MOD[:w]
+    s = length(Σ)
+
+    @variable(MOD, p[1:h, 1:h], Bin)
+    @variable(MOD, t[1:h, 1:h], Bin)
+
+    ϵi = findfirst(isequal(()), prefixes)
+    @constraint(MOD, MOD[:x][ϵi, 1] == 1)
+
+    # for j in 2:h
+    #     # @constraint(MOD, 1 <= sum(p[j, 1:j-1]))
+    #     @constraint(MOD, w[j] <= sum(p[j, 1:j-1]))
+    # end
+
+    for j in 1:h-1
+        # @constraint(MOD, 1 <= sum(p[j, 1:j-1]))
+        @constraint(MOD, sum(p[j, j+1:end]) == 0)
+    end
+
+    for (i, j) in subsets(1:h, 2)
+        @constraint(MOD, 0 <= s*t[i, j] - sum(y[1:s, i, j]) <= s-1)
+        @constraint(MOD, 1-i <= t[i, j] - sum(t[1:i-1, j]) - i*p[j,i] <= 0)
+    end
+
+    for (k, i, j) in subsets(1:h-1, 3)
+        @constraint(MOD, p[j, i] <= 1-p[j+1, k])
+    end
+
+    if length(Σ) == 2
+        for (i, j) in subsets(1:h-1, 2)
+            @constraint(MOD, p[j, i] + p[j+1, i] - 1 <= y[1, i, j])
+        end
+    else
+        @variable(MOD, m[1:s, 1:h, 1:h], Bin)
+
+        for (i, j) in subsets(1:h, 2)
+            for l in 1:s
+                @constraint(MOD, 1-l <= y[l, i, j] - sum(y[1:l-1, i, j]) - l*m[l, i, j] <= 0)
+            end
+
+            for (l1, l2) in subsets(1:s, 2)
+                @constraint(MOD, m[l2, i, j] <= 1-y[l1, i, j])
+            end
+        end
+
+        for (i, j) in subsets(1:h-1, 2)
+            for (l1, l2) in subsets(1:s, 2)
+                @constraint(MOD, p[j, i] + p[j+1, i] + m[l2, i, j] - 2 <= 1 - m[l1, i, j+1])
+            end
+        end
+    end
+end
+
+function break_dfa_symmetry_bfs_pop!(MOD, Σ, prefixes, h)
+    y, w = MOD[:y], MOD[:w]
+    s = length(Σ)
+
+    q = 1
+
+    @variable(MOD, p[1:h, 1:h], Bin)
+    @variable(MOD, t[1:h, 1:h], Bin)
+
+    # ϵi = findfirst(isequal(()), prefixes)
+    # @constraint(MOD, MOD[:x][ϵi, 1] == 1)
+
+    for j in 2:h
+        # @constraint(MOD, 1 <= sum(p[j, 1:j-1]))
+        @constraint(MOD, w[j-1,q] <= sum(p[j, j+1:end]))
+    end
+
+    for (i, j) in subsets(1:h, 2)
+        @constraint(MOD, 0 <= s*t[i, j] - sum(y[1:s, i, j]) <= s-1)
+        @constraint(MOD, 1-i <= t[i, j] - sum(t[1:i-1, j]) - i*p[j,i] <= 0)
+    end
+
+    for (j, i, k) in subsets(2:h, 3)
+        @constraint(MOD, p[j, i] <= 1-p[j+1, k])
+    end
+
+    if length(Σ) == 2
+        for (i, j) in subsets(1:h-1, 2)
+            @constraint(MOD, p[j, i] + p[j+1, i] - 1 <= y[2, i, j])
+        end
+    else
+        @variable(MOD, m[1:s, 1:h, 1:h], Bin)
+
+        for (i, j) in subsets(1:h, 2)
+            for l in 1:s
+                @constraint(MOD, 1-l <= y[l, i, j] - sum(y[1:l-1, i, j]) - l*m[l, i, j] <= 0)
+            end
+
+            for (l1, l2) in subsets(1:s, 2)
+                @constraint(MOD, m[l2, i, j] <= 1-y[l1, i, j])
+            end
+        end
+
+        for (i, j) in subsets(1:h-1, 2)
+            for (l1, l2) in subsets(1:s, 2)
+                @constraint(MOD, p[j, i] + p[j+1, i] + m[l2, i, j] - 2 <= 1 - m[l1, i, j+1])
+            end
+        end
+    end
+end
+
 function solve_min_dfa_model(MOD, Σ, prefixes, k=round(Int, objective_value(MOD)))
     status = Int(termination_status(MOD))
 
-    if status != 1
-        # TODO: Make this error message better
-        error("ERROR")
-    end
+    # if status != 1
+    #     # TODO: Make this error message better
+    #     error("Solver failed to find a feasible solution")
+    # end
 
     A = [round.(Int, value.(MOD[:y][l, 1:k, 1:k])) for l in 1:length(Σ)]
     q1 = round.(Int, value.(MOD[:x][findfirst(isequal(()), prefixes), 1:k]))
     q∞ = round.(Int, value.(MOD[:z][1:k]))
 
     return q1, q∞, A
+end
+
+function dfa_state_lower_bound!(MOD, n)
+    for i in 1:n
+        @constraint(MOD, MOD[:w][i] == 1)
+    end
+end
+
+function dfa_clique_bound(prefixes, train, G)
+    pos = [findfirst(isequal(t), prefixes) for (t, r) in train if r == 1]
+    neg = [findfirst(isequal(t), prefixes) for (t, r) in train if r == 0]
+    posG = induced_subgraph(G, pos)[1]
+    negG = induced_subgraph(G, neg)[1]
+    posC = maximum(length.(maximal_cliques(posG)))
+    negC = maximum(length.(maximal_cliques(negG)))
+    return posC + negC
 end
 
 function main()
@@ -398,12 +645,21 @@ function learn_dfa(fname, h=50, solver=:naps, opbname=nothing)
 
     MOD = Model(with_optimizer(NaPS.Optimizer, solver, opbname))
 
-    min_dfa_setup_model!(MOD, train, prefixes, G, Σ, h)
-    break_dfa_symmetry_bfs!(MOD, Σ, prefixes, h)
+    min_dfa_setup_model_pop!(MOD, train, prefixes, G, Σ, h)
+    break_dfa_symmetry_bfs_pop!(MOD, Σ, prefixes, h)
+
+    # min_dfa_setup_model!(MOD, train, prefixes, G, Σ, h)
+    # break_dfa_symmetry_bfs!(MOD, Σ, prefixes, h)
+
+    # dfa_state_lower_bound!(MOD, dfa_clique_bound(prefixes, train, G))
 
     @show MOD
 
     optimize!(MOD)
 
-    return solve_min_dfa_model(MOD, Σ, prefixes)
+    dfa = solve_min_dfa_model(MOD, Σ, prefixes, round(Int, objective_value(MOD) + 1))
+
+    @assert all(wfa_eval(dfa..., t) == r for (t, r) in train)
+
+    return dfa
 end

@@ -28,6 +28,68 @@ function wfa_eval(a1, a∞, A, s)
     return reduce(*, [a1', (A[c + 1] for c in s)..., a∞])
 end
 
+
+function random_iid_training_set(dfa, Σ, max_len, p)
+    train = []
+
+    for l in 0:max_len
+        for seq in Iterators.product(repeat([Σ], l)...)
+            if rand() < p
+                push!(train, (seq, dfa(seq)))
+            end
+        end
+    end
+
+    return train
+end
+
+function enumerate_fixes(train)
+    prefixes = UniqueVector([])
+    suffixes = UniqueVector([])
+
+    for (seq, result) in train
+        for cut in 0:length(seq)
+            prefix = seq[1:cut]
+            suffix = seq[cut+1:end]
+            pi = findfirst!(isequal(prefix), prefixes)
+            si = findfirst!(isequal(suffix), suffixes)
+        end
+    end
+    return prefixes, suffixes
+end
+
+function partial_hankel(train, prefixes, suffixes)
+    num_p, num_s = length(prefixes), length(suffixes)
+
+    mask = falses(num_s, num_p)
+    dmap = BitArray(undef, num_s, num_p)
+
+    for (seq, result) in train
+        for cut in 0:length(seq)
+            prefix = seq[1:cut]
+            suffix = seq[cut+1:end]
+            pi = findfirst(isequal(prefix), prefixes)
+            si = findfirst(isequal(suffix), suffixes)
+            dmap[si, pi] = result
+            mask[si, pi] = true
+        end
+    end
+
+    return dmap, mask
+end
+
+function build_distinguishability_graph(dmap, mask)
+    num_p = size(dmap)[2]
+    G = SimpleGraph(num_p)
+
+    for (i, j) in subsets(1:num_p, 2)
+        if any((mask[:, i] .& mask[:, j]).*(dmap[:, i] .!= dmap[:, j]))
+            add_edge!(G, i, j)
+        end
+    end
+    return G
+end
+
 function min_color(
     G::SimpleGraph,
     h=LightGraphs.random_greedy_color(G, 100).num_colors,
