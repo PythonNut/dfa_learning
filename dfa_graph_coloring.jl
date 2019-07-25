@@ -82,12 +82,11 @@ function add_multi_edge!(G, us, vs)
 end
 
 
-function main()
+function main(fname="dcts/dfa_8_try_1.dct", h=8)
     s = 2
     Σ = collect(0:s-1)
-    h = 12
 
-    train = read_dct("dcts/dfa_8_try_1.dct")
+    train = read_dct(fname)
     @printf("Given %d training examples\n", length(train))
 
     prefixes, suffixes = enumerate_fixes(train)
