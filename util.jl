@@ -5,7 +5,7 @@ using UniqueVectors
 using IterTools
 using Printf
 using JuMP
-using Gurobi
+# using Gurobi
 
 include("MOI_wrapper.jl")
 include("abbadingo.jl")
@@ -151,7 +151,7 @@ function min_color(
     return result
 end
 
-function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3)))
+function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(NaPS.Optimizer)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
@@ -173,7 +173,7 @@ function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer
     return A
 end
 
-function max_clique(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3)))
+function max_clique(G::SimpleGraph, MOD=Model(with_optimizer(NaPS.Optimizer)))
     return max_indep_set(LightGraphs.complement(G), MOD)
 end
 
@@ -268,7 +268,7 @@ function min_color_pop2(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100
     return value.(w), value.(d)
 end
 
-function min_color2(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer)))
+function min_color2(G::SimpleGraph, MOD=Model(with_optimizer(NaPS.Optimizer)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
