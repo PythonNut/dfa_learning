@@ -13,6 +13,7 @@ boolexpr = "^2.4"
 pysmt = "^0.8.0"
 gmpy2 = "^2.0"
 Cython = "^0.29.12"
+ortools = "^7.2"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.6"
