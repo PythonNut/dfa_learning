@@ -5,7 +5,7 @@ using UniqueVectors
 using IterTools
 using Printf
 using JuMP
-using Gurobi
+# using Gurobi
 
 include("MOI_wrapper.jl")
 include("abbadingo.jl")
@@ -26,6 +26,68 @@ end
 
 function wfa_eval(a1, a∞, A, s)
     return reduce(*, [a1', (A[c + 1] for c in s)..., a∞])
+end
+
+
+function random_iid_training_set(dfa, Σ, max_len, p)
+    train = []
+
+    for l in 0:max_len
+        for seq in Iterators.product(repeat([Σ], l)...)
+            if rand() < p
+                push!(train, (seq, dfa(seq)))
+            end
+        end
+    end
+
+    return train
+end
+
+function enumerate_fixes(train)
+    prefixes = UniqueVector([])
+    suffixes = UniqueVector([])
+
+    for (seq, result) in train
+        for cut in 0:length(seq)
+            prefix = seq[1:cut]
+            suffix = seq[cut+1:end]
+            pi = findfirst!(isequal(prefix), prefixes)
+            si = findfirst!(isequal(suffix), suffixes)
+        end
+    end
+    return prefixes, suffixes
+end
+
+function partial_hankel(train, prefixes, suffixes)
+    num_p, num_s = length(prefixes), length(suffixes)
+
+    mask = falses(num_s, num_p)
+    dmap = BitArray(undef, num_s, num_p)
+
+    for (seq, result) in train
+        for cut in 0:length(seq)
+            prefix = seq[1:cut]
+            suffix = seq[cut+1:end]
+            pi = findfirst(isequal(prefix), prefixes)
+            si = findfirst(isequal(suffix), suffixes)
+            dmap[si, pi] = result
+            mask[si, pi] = true
+        end
+    end
+
+    return dmap, mask
+end
+
+function build_distinguishability_graph(dmap, mask)
+    num_p = size(dmap)[2]
+    G = SimpleGraph(num_p)
+
+    for (i, j) in subsets(1:num_p, 2)
+        if any((mask[:, i] .& mask[:, j]).*(dmap[:, i] .!= dmap[:, j]))
+            add_edge!(G, i, j)
+        end
+    end
+    return G
 end
 
 function min_color(
@@ -89,7 +151,7 @@ function min_color(
     return result
 end
 
-function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3)))
+function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(NaPS.Optimizer)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
@@ -111,7 +173,7 @@ function max_indep_set(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer
     return A
 end
 
-function max_clique(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer, MIPFocus=3)))
+function max_clique(G::SimpleGraph, MOD=Model(with_optimizer(NaPS.Optimizer)))
     return max_indep_set(LightGraphs.complement(G), MOD)
 end
 
@@ -206,7 +268,7 @@ function min_color_pop2(G::SimpleGraph, h=LightGraphs.random_greedy_color(G, 100
     return value.(w), value.(d)
 end
 
-function min_color2(G::SimpleGraph, MOD=Model(with_optimizer(Gurobi.Optimizer)))
+function min_color2(G::SimpleGraph, MOD=Model(with_optimizer(NaPS.Optimizer)))
     VV = vertices(G)
     EE = edges(G)
     n = nv(G)
