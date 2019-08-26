@@ -94,7 +94,9 @@ int main(){
 	// dictionary: 0 is unstated, 1 is stated
 	// set includes possible number of states
 	unordered_map<unsigned int,set<unsigned int>> different_group, constrain2prefix,prefix2constrain;
-	unordered_map<unsigned int,queue<char>> constrains;	
+	// cannot change the above to vector bc we need it to be indexed properly
+	vector<vector<int>> constrain_content;	
+	vector<vector<char>> constrain_op;	
 
 
 	// build distinguishability map
@@ -152,7 +154,33 @@ int main(){
 		//cout<<"yesss   "<<suffixes_map20[i->first]<<"\n";
 		for(auto j=i->second.begin();j!=i->second.end();j++){
 			//cout<<get<0>(*j)<<"  no "<<prefixes_indexes[get<0>(*j)]<<" hi  "<<prefixes_indexes[get<1>(*j)]<<"   \n";
-			
+			for(auto k=j+1;k!=i->second.end();k++){
+				vector<int> c_c, c_o;
+				int c_id=constrain_op.size();
+				int long_1=get<0>(*j);
+				int long_2=get<0>(*k);
+				int short_1=get<1>(*j);
+				int short_2=get<1>(*k);
+				c_o.push("i");
+				c_o.push("e");
+				c_c.push(short_1);
+				c_c.push(short_2);
+				c_c.push(long_1);
+				c_c.push(long_2);
+				constrain_op.push(c_o);
+				constrain_content.push(c_c);
+				set<unsigned int> c2p;
+				c2p.insert(short_1);
+				c2p.insert(short_2);
+				c2p.insert(long_1);
+				c2p.insert(long_2);
+				constrain2prefix[c_id]=c2p;
+				prefix2constrain[short_1].insert(c_id);
+				prefix2constrain[short_2].insert(c_id);
+				prefix2constrain[long_1].insert(c_id);
+				prefix2constrain[long_2].insert(c_id);
+			}
+
 			
 
 		}
@@ -214,31 +242,99 @@ int main(){
 		// searching
 		unordered_map<unsigned int,set<unsigned int>> prefix_table, state2prefix;
 		//do we need state2prefix????
+		//state starts with 1!!!!!!!!!!!!!!!!!!!
 		unsigned int prefix2state[prefixes.size()];
-		stack<tuple<unsigned int,unsigned int>> prefix_table_trace, state2prefix_trace, prefix2state_trace;
-		
+		stack<tuple<unsigned int,unsigned int>> prefix_table_t, state2prefix_t, prefix2state_t;
+		// prefix and state, state prefix, prefix state for tuples. 
+		unsigned int sb[color];
 		for(unsigned int i=1;i<prefixes.size();i++){
-			
-			unsigned int j=0;
-			while(j<i || j<color);
+			if(i<color+1)
+				sb[i-1]=i;
+			if(different_group[0].find(i)!=different_group[0])
+				unsigned int j=1;
+			else
+				unsigned int j=2;
+			while(j<i+1 && j<color+1)
 				prefix_table[i].insert(j++);
 		}
-		prefix2state[0]=0;
-		state2prefix[0].insert(0);
-		//merged(0,0,prefix_table,false,prefix_table_trace);
+		
+		prefix2state[0]=1;
+		state2prefix[1].insert(0);
+			
 		//search
+		symmetry_breaking(color,*sb,*prefix2state,prefix_table,prefix_table_t, false);
 
 		color++;
 	}
 	cout<<"end";
 }
 
-//access conflict by *((conflict+i*n)+j)
+//search: 
+//constrain_finding (most probable) via parser preper
+//	insufficient info, assumption builder and update
+// 	sufficient info, parser
+//     all good, search
+// 	   conflict, all possible values check, conflict diagonsis, backtrack, update assumption, continue.
+//		
 
-void parser(){
-	string constrain = 
-	for
+
+void update(set<unsigned int> different_set, int state,unordered_map<unsigned int,set<unsigned int>> prefix_table, stack<tuple<unsigned int, unsigned int>> prefix_table_t){
+	for(auto i=different_set.begin();i!=different_set.end();i++){
+		prefix_table[*i].erase(state);
+		prefix_table_t.push(make_tuple(*i,state));
+	}
 }
+
+//set<unsigned int>> constrain2prefix,unordered_map<unsigned int,set<unsigned int>> prefix2constrain){
+void symmetry_breaking(int color,(int *)sb, (int *) prefix2state,unordered_map<unsigned int,set<unsigned int>> prefix_table, stack<tuple<unsigned int,unsigned int>> prefix_table_t,bool trace){
+	for(int i=0;i<color;i++){
+		if( prefix2state[*(sb+i)] < i+2 && prefix2[*(sb+i)]>0){
+			for(int j=*(sb+i);j<prefix_table.size();j++){
+				int s = *(prefix_table[j].end()-1);
+				prefix_table[j].erase(s);
+				if(bool){
+					prefix_table_t.push(make_tuple(j,s));
+				}
+			}
+		}
+	}
+}
+
+//access conflict by *((conflict+i*n)+j)
+// appears that all constrains are in the form of or, so as long as one of them works, all of them works. 
+int parser(vector<vector<int>> constrain_op,vector<vector<int>> constrain_content,int constrain,(int *)prefix2state ){
+	int num_constrain = contrain_op[constrain].size();
+	int result = 0;
+	int j=0;
+	for(int i=0;i<num_constrain;i++){
+		char op = contrain_op[constrain][i];
+		int a = constrain_content[cosntrain][j++];
+		int b = constrain_content[cosntrain][j++];
+		int c = *(prefix2state+a);
+		int d = *(prefix2state+b);
+		if(op='e')
+			result=(c==d);
+		else
+			result=(c!=d);
+		if(result==1)
+			break;
+	}
+	return result;
+
+}
+
+//check whehter something is ready for parsing, return a set of integers that need assumptions
+set<int> parse_preper()
+
+//build assumptions. remember to take in tracer. also use a set of int as implication graph. void.
+void assumption_builder()
+
+// return conflict for database. use when parser return false.might want to look at dpll. 
+vector<int> conflict_diagnosis()
+
+//redo. take in tracer and relevent databases.
+void backtracking()
+
 
 	/*
 void merged(int state, int prefix, unordered_map<int,set<int>> prefix_table, bool track, stack<tuple<int,int>> prefix_table_trace){
