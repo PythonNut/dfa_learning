@@ -15,7 +15,7 @@
 using namespace std;
 
 void set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix);
-int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &finish_prefix);
+set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &finish_prefix);
 bool cmp(string a, string b) {
    	if(a.size()!=b.size())
 		return a.size()<b.size();
@@ -209,7 +209,6 @@ int main(){
 	}
 	*/
 	//buildin txt file for coloring
-	
 	freopen("output.txt","w",stdout);
 	ofstream dimacs;
   	dimacs.open ("search_dimacs.col");
@@ -227,7 +226,7 @@ int main(){
 	scanf("%*f %*s %*s %*s %d",&color); 
 	
 	cout<<"found lower bound number of states "<< color<<"\n";
-
+	int color = 12;
 	bool fail = false;
 	while(!fail){
 		// searching
@@ -255,7 +254,7 @@ int main(){
 		
 		prefix2state[0]=1;	
 		prefix_done++;
-		int update_index=update(0,1,prefix2state,p2s_t,different_group,prefix_table,    prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,false,prefix_done);
+		int update_index=*(update(0,1,prefix2state,p2s_t,different_group,prefix_table,    prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,false,prefix_done).begin());
 		
 		//set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace, prefix_done);
 		
@@ -316,7 +315,7 @@ set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unorde
 			return {-1};
 		else if(s==1 && prefix2state[*i]==0){
 			set_state(*i,*(prefix_table[*i].begin()),prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
-			update_index=update(*i,*(prefix_table[*i].begin()),prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
+			update_index=*(update(*i,*(prefix_table[*i].begin()),prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish).begin());
 			if(update_index==-1)
 				return {-1};
 			else{
@@ -370,7 +369,7 @@ set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unorde
 			int s0=(d1!=0)?d1:d2;
 			if(op==-1){
 				set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
-				update_index=update(p0,s0,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
+				update_index=*(update(p0,s0,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish).begin());
 				if(update_index==-1)
 					return {-1};
 				else{
@@ -390,7 +389,7 @@ set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unorde
 			}
 		}
 	}
-	return smallestIndex;
+	return {smallestIndex};
 }
 
 
