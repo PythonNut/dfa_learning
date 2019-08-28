@@ -15,7 +15,7 @@
 using namespace std;
 
 void set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix);
-set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &finish_prefix);
+int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &finish_prefix);
 bool cmp(string a, string b) {
    	if(a.size()!=b.size())
 		return a.size()<b.size();
@@ -226,7 +226,8 @@ int main(){
 	scanf("%*f %*s %*s %*s %d",&color); 
 	
 	cout<<"found lower bound number of states "<< color<<"\n";
-	int color = 12;
+	
+	
 	bool fail = false;
 	while(!fail){
 		// searching
@@ -254,8 +255,10 @@ int main(){
 		
 		prefix2state[0]=1;	
 		prefix_done++;
-		int update_index=*(update(0,1,prefix2state,p2s_t,different_group,prefix_table,    prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,false,prefix_done).begin());
-		
+		int update_index=update(0,1,prefix2state,p2s_t,different_group,prefix_table,    prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,false,prefix_done);
+		int closest=1;
+		stack<tuple<int,int>> assumption_list;		
+
 		//set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace, prefix_done);
 		
 		//search
@@ -269,18 +272,54 @@ int main(){
 	}
 	cout<<"end";
 }
+//the tuple vs pair debate too!
+int search(int prefix,stack<tuple<int,int>> &assumption_list, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish){
+	if(prefix_finish==prefix_table.size())
+		return 1;
+	int search_result;
+	while(prefix2state[closest]!=0)
+		closest++;
+	if(prefix_table[closest].size()>prefix_table[prefix].size())
+		prefix=closest;
+	int assumption_list_s=assumption_list.size();
+	int p2s_t_s=p2s_t.size();
+	int pt_p_s=prefix_table_p.size();
+	int p_f=prefix_finish;
+	for(auto i=prefix_table[prefix].begin();i!=prefix_table[prefix].end();i++){
+		assumption_list.push(*i);
+		set_state(prefix,*i,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,true,prefix_finish);
+		update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
+		if(update_index>-1){
+			search_result=search(prefix,assumption_list,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish);
+			if(search_result)
+				return 1;
+		}
+		prefix_finish=p_f;
+		while(pt_p_s<prefix_table_p.size()){
+			set<int> ptset=prefix_table_t.top();
+			int ptint=prefix_table_p.top();
+			prefix_table_t.pop();
+			prefix_table_p.pop();
+			prefix_table[ptint].insert(ptset.begin(),ptset.end());	
+		}
+		vector<int> restriction;
+		while(assumption_list_s<assumption_list.size()){
+			tuple<int,int> assumption=assumption_list.top();
+			int a_p=get<0>(assumption);
+			int a_s=get<1>(assumption);
 
-//search: 
-//constrain_finding (most probable) via parser preper
-//	insufficient info, assumption builder (use constrian to make assumptions) and update
-// 	sufficient info, parser
-//     all good, search
-// 	   conflict, all possible values check, conflict diagonsis, backtrack, update assumption, continue.
-//		
+			
+		}
+		
+
+		
+		
+	}
+
+}
 
 
 // strict deduction. should have no error. only error is in assumption
-
 void set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix){
 	*(prefix2state+prefix)=state;	
 	finish_prefix++;
@@ -294,7 +333,7 @@ void set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unorder
 		prefix_table[prefix].insert(state);
 	}
 }
-set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &prefix_finish){
+int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &prefix_finish){
 	set<int> different_set=different_group[prefix];
 	int update_num;
 	int update_index;
@@ -312,12 +351,12 @@ set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unorde
 		}
 		int s = prefix_table[*i].size();
 		if(s==0)
-			return {-1};
+			return -1;
 		else if(s==1 && prefix2state[*i]==0){
 			set_state(*i,*(prefix_table[*i].begin()),prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
-			update_index=*(update(*i,*(prefix_table[*i].begin()),prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish).begin());
+			update_index=update(*i,*(prefix_table[*i].begin()),prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
 			if(update_index==-1)
-				return {-1};
+				return -1;
 			else{
 				update_num=prefix_table[update_index].size();
 				if(update_num<smallest){
@@ -357,7 +396,7 @@ set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unorde
 			continue;
 		// no undetermined and no result(all false) --> conflict
 		if(undetermined==-2)
-			return {-1};
+			return -1;
 		// exactly one undetermined
 		if(undetermined>-1 && result==num_constrain/3-1){
 			int op=content[undetermined++];
@@ -369,9 +408,9 @@ set<int> update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unorde
 			int s0=(d1!=0)?d1:d2;
 			if(op==-1){
 				set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
-				update_index=*(update(p0,s0,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish).begin());
+				update_index=update(p0,s0,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
 				if(update_index==-1)
-					return {-1};
+					return -1;
 				else{
 					update_num=prefix_table[update_index].size();
 					if(update_num<smallest){
