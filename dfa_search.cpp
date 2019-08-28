@@ -234,7 +234,11 @@ int main(){
 		int prefix_done=0;
 		unordered_map< int,set< int>> prefix_table, state2prefix;
 		//state starts with 1!!!!!!!!!!!!!!!!!!!
-		int prefix2state[prefixes.size()];
+		// color starts at prefixes.size()+color_num+1
+		int prefix2state[prefixes.size()+color];
+		for(int i=prefixes.size()+1;i<prefixes.size()+color+1;i++){
+			prefix2state[i]=i-prefixes.size();
+		}
 		stack<set< int>> prefix_table_t;
 		stack<int> prefix_table_p, p2s_t;
 		// prefix and state, state prefix, prefix state for tuples. 
@@ -253,7 +257,7 @@ int main(){
 				prefix_table[i].insert(j++);
 		}
 		
-		prefix2state[0]=1;	
+		prefix2state[0]=1;
 		prefix_done++;
 		int update_index=update(0,1,prefix2state,p2s_t,different_group,prefix_table,    prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,false,prefix_done);
 		int closest=1;
@@ -302,12 +306,16 @@ int search(int prefix,stack<tuple<int,int>> &assumption_list, int &closest,int *
 			prefix_table_p.pop();
 			prefix_table[ptint].insert(ptset.begin(),ptset.end());	
 		}
+		//this requires prefix2state to be longer!!! 
 		vector<int> restriction;
 		while(assumption_list_s<assumption_list.size()){
 			tuple<int,int> assumption=assumption_list.top();
 			int a_p=get<0>(assumption);
 			int a_s=get<1>(assumption);
+			//need conflict diagnosis here
+			//and use prefix_table.size()+color_num (>=1) for constrain_content
 
+			
 			
 		}
 		
