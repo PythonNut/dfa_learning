@@ -277,27 +277,75 @@ int main(){
 	cout<<"end";
 }
 //the tuple vs pair debate too!
-int search(int prefix,stack<tuple<int,int>> &assumption_list, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish){
+int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish){
 	if(prefix_finish==prefix_table.size())
 		return 1;
+
+
 	int search_result;
 	while(prefix2state[closest]!=0)
 		closest++;
 	if(prefix_table[closest].size()>prefix_table[prefix].size())
 		prefix=closest;
-	int assumption_list_s=assumption_list.size();
+	int assumption_p_s=assumption_p.size();
 	int p2s_t_s=p2s_t.size();
 	int pt_p_s=prefix_table_p.size();
 	int p_f=prefix_finish;
+	
+
 	for(auto i=prefix_table[prefix].begin();i!=prefix_table[prefix].end();i++){
-		assumption_list.push(*i);
+		assumption_p.push(prefix);
+		assumption_s.push(*i);
 		set_state(prefix,*i,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,true,prefix_finish);
 		update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
-		if(update_index>-1){
-			search_result=search(prefix,assumption_list,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish);
+	
+		
+		while(update_index>-1){
+			search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish);
 			if(search_result)
 				return 1;
+
+			// depth variable
+			else if(search_result==0 && == assumption_p.size()){
+				
+				//clean up here
+					prefix_finish=p_f;
+				while(pt_p_s<prefix_table_p.size()){
+					set<int> ptset=prefix_table_t.top();
+					int ptint=prefix_table_p.top();
+					prefix_table_t.pop();
+					prefix_table_p.pop();
+					prefix_table[ptint].insert(ptset.begin(),ptset.end());	
+				}
+
+				// use assumption list to find the highest decision level
+				//this requires prefix2state to be longer!!! 
+					vector<int> restriction;
+				while(assumption_p_s<assumption_p.size()){
+					// change this to 2 stacks. 
+					int a_p=assumption_p.top();
+					int a_s=assumption_s.top();
+					assumption_p.pop();
+					assumption_s.pop();
+					vector<int> c;
+					c.push_back(-2);				
+					c.push_back(a_p);
+					c.push_back(a_s);
+					constrain_content.push_back(c);
+					//need conflict diagnosis here
+					//and use prefix_table.size()+color_num (>=1) for constrain_content
+				}
+
+
+				update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
+				search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish);
+			}
+			else
+				return 0;
+
 		}
+
+
 		prefix_finish=p_f;
 		while(pt_p_s<prefix_table_p.size()){
 			set<int> ptset=prefix_table_t.top();
@@ -306,29 +354,22 @@ int search(int prefix,stack<tuple<int,int>> &assumption_list, int &closest,int *
 			prefix_table_p.pop();
 			prefix_table[ptint].insert(ptset.begin(),ptset.end());	
 		}
-		//this requires prefix2state to be longer!!! 
-		vector<int> restriction;
-		while(assumption_list_s<assumption_list.size()){
-			tuple<int,int> assumption=assumption_list.top();
-			int a_p=get<0>(assumption);
-			int a_s=get<1>(assumption);
-			//need conflict diagnosis here
-			//and use prefix_table.size()+color_num (>=1) for constrain_content
 
+		assumption_p.pop();
+		assumption_s.pop();
 			
-			
-		}
-		
+	
 
-		
-		
 	}
+	return 0;
 
 }
 
 
 // strict deduction. should have no error. only error is in assumption
-void set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix){
+int set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix){
+	if(prefix_table[prefix].find(state)==prefix_table[prefix].end())
+		return -1;
 	*(prefix2state+prefix)=state;	
 	finish_prefix++;
 	if(prefix_table[prefix].size()>1){
@@ -340,6 +381,7 @@ void set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unorder
 		prefix_table[prefix].clear();
 		prefix_table[prefix].insert(state);
 	}
+	return 1;
 }
 int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &prefix_finish){
 	set<int> different_set=different_group[prefix];
@@ -415,9 +457,9 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 			int p0=(d1==0)?c1:c2;
 			int s0=(d1!=0)?d1:d2;
 			if(op==-1){
-				set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
+				int set_state_index=set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
 				update_index=update(p0,s0,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
-				if(update_index==-1)
+				if(update_index==-1||set_state_index==-1)
 					return -1;
 				else{
 					update_num=prefix_table[update_index].size();
@@ -432,11 +474,13 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 				if(trace){
 					prefix_table_t.push({s0});
 					prefix_table_p.push(p0);
+				if(prefix_table[p0].size()==1)
+					return -1;
 				}	
 			}
 		}
 	}
-	return {smallestIndex};
+	return smallestIndex;
 }
 
 
