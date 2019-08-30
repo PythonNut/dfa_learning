@@ -277,7 +277,7 @@ int main(){
 	cout<<"end";
 }
 //the tuple vs pair debate too!
-int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish){
+int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish, int depth){
 	if(prefix_finish==prefix_table.size())
 		return 1;
 
@@ -301,12 +301,12 @@ int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &cl
 	
 		
 		while(update_index>-1){
-			search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish);
+			search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish,depth+1);
 			if(search_result)
 				return 1;
 
 			// depth variable
-			else if(search_result==0 && == assumption_p.size()){
+			else if(search_result==0 && depth == 0){
 				
 				//clean up here
 					prefix_finish=p_f;
@@ -338,7 +338,7 @@ int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &cl
 
 
 				update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
-				search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish);
+				search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish,depth+1);
 			}
 			else
 				return 0;
