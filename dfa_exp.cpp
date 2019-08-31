@@ -297,30 +297,40 @@ int main(){
 			break;
 		}
 		color++;
+		cout<<"color "<<color<<"\n";
+		cout<<"****************************************\n";
+		cout<<"****************************************\n";
+		cout<<"****************************************\n";
 	}
 	cout<<"end";
 }
 //the tuple vs pair debate too!
-int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish, int depth){
+int search(int prefix_candidate,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish, int depth){
 	cout<<"##################################################\n";
 	cout<<"##################################################\n";
-	cout<<"start searching for prefix "<<prefix<<"\n";
+	cout<<"start searching for prefix candidate"<<prefix_candidate<<"\n";
 	cout<<"the depth is "<<depth<<"\n";
 	cout<<"number of prefix finish is "<<prefix_finish<<" out of "<<prefix_table.size()<<"\n";
 	if(prefix_finish==prefix_table.size())
 		return 1;
-	int search_result;
+	int search_result, prefix;
 	while(prefix2state[closest]!=-3){
 		//cout<<closest<<" close \n";
 		//cout<<prefix2state[closest]<<"\n";
 		closest++;
+		if(closest>prefix_table.size())
+			closest=1;
 	}
-	if(prefix_table[closest].size()<prefix_table[prefix].size()){
+	cout<<"the closest is prefix "<<closest<<" with state "<<prefix2state[closest]<<"\n";
+	if(prefix_table[closest].size()<prefix_table[prefix_candidate].size() && prefix2state[closest]==-3){
 		//cout<<prefix_table[closest].size()<<" close size\n";
 		//cout<<prefix_table[prefix].size()<<" prefix size\n";
 		//cout<<closest<<" close \n";
 		prefix=closest;
 	}
+	else
+		prefix=prefix_candidate;
+
 	cout<<"now the search is for prfix "<<prefix<<"\n";
 	int assumption_p_s=assumption_p.size();
 	int p2s_t_s=p2s_t.size();
@@ -329,7 +339,7 @@ int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &cl
 	set<int> pt=prefix_table[prefix];
 	int count=0;
 	for(auto i=pt.begin();i!=pt.end();i++){
-		cout<<"searching process for prefix "<<prefix<<"using state "<<*i<< " with count "<<count<<" out of "<<pt.size()<<"\n";
+		//cout<<"searching process for prefix "<<prefix<<"using state "<<*i<< " with count "<<count<<" out of "<<pt.size()<<"\n";
 		count++;
 		assumption_p.push(prefix);
 		assumption_s.push(*i);
@@ -337,7 +347,7 @@ int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &cl
 		int update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
 		while(update_index>-1){
 			cout<<"searching assumption is correct for prefixs "<<prefix<<"with state "<<*i<<" continuing next search\n";
-			search_result=search(prefix,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish,depth+1);
+			search_result=search(update_index,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish,depth+1);
 			if(search_result){
 				//cout<<"search success, returning to initial depth\n";
 				return 1;
@@ -393,9 +403,9 @@ int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &cl
 int set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix){
 	if(prefix_table[prefix].find(state)==prefix_table[prefix].end())
 		return -1;
-	if( *(prefix2state+prefix)==-3)
+	if( *(prefix2state+prefix)==-3){
 		finish_prefix++;
-
+	}
 	*(prefix2state+prefix)=state;	
 	cout<<"setting state for prefix "<<prefix<<" wtih state "<<state<<"\n";
 	if(prefix_table[prefix].size()>1){
@@ -415,15 +425,23 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 	set<int> different_set=different_group[prefix];
 	int update_num;
 	int update_index;
+	
 	int smallest=prefix_table[*(different_set.begin())].size();
 	int smallestIndex=*(different_set.begin());
+	while(smallest<2 && prefix2state[smallestIndex]!=-3){
+		smallestIndex++;
+		smallest=prefix_table[smallest].size();
+		if(smallestIndex>prefix_table.size())
+			smallestIndex=1;
+
+	}
 	set<int> p2c=prefix2constrain[prefix];
 
 	cout<<"starting constrain evaluation\n";
 	int test_v=0;	
 	
 	for(auto k=p2c.begin();k!=p2c.end();k++){
-		if(test_v%1000==0)
+		if(test_v>1 && test_v%1000==0)
 		cout<<"update's constrain evaluation for prefix"<< prefix<<"using constrain "<<*k<< " count " <<test_v<< "out of " <<p2c.size()<<"\n";
 		test_v++;
 		int constrain=*k;
@@ -485,7 +503,7 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 				}
 				else{
 					update_num=prefix_table[update_index].size();
-					if(update_num<smallest){
+					if(update_num<smallest and update_num>1){
 						smallestIndex=update_index;
 						smallest=update_num;
 					}
@@ -497,7 +515,17 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 				if(trace){
 					prefix_table_t.push({s0});
 					prefix_table_p.push(p0);
-				if(prefix_table[p0].size()==1)
+				if(prefix_table[p0].size()==1 && prefix2state[p0]==-3){
+					cout<<"success forced inequality. updating "<<p0<<"\n";
+					set_state(p0,*(prefix_table[p0].begin()),prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
+					update_index=update(p0,*(prefix_table[p0].begin()),prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
+				}
+				if(update_index==-1){
+					cout<<"failed difference update, returning -1 \n";
+					return -1;
+			}
+				
+				if(prefix_table[p0].size()==0)
 					return -1;
 				}	
 			}
@@ -509,10 +537,10 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 		return smallestIndex;
 
 	for(auto i=different_set.begin();i!=different_set.end();i++){
-		if(count%1000==0)
+		if(count%1000==0 && count>1)
 		cout<<"update's difference evaluation for prefix"<< prefix<<"with state "<<*i<<" count " <<count<< "out of " <<different_set.size()<<"\n";
 		count++;
-		if(prefix_table[*i].size()<smallest){
+		if(prefix_table[*i].size()<smallest and prefix_table[*i].size()>1){
 			smallestIndex=*i;
 			smallest=prefix_table[smallestIndex].size();
 		}
@@ -536,7 +564,7 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 			}
 			else{
 				update_num=prefix_table[update_index].size();
-				if(update_num<smallest){
+				if(update_num<smallest and update_num>1){
 					smallestIndex=update_index;
 					smallest=update_num;
 				}
