@@ -13,13 +13,11 @@
 #include <fstream>
 #include <bits/stdc++.h> 
 using namespace std;
-
+int color;
 int set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix);
-
 int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &finish_prefix);
-
 int search(int prefix,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish, int depth);
-
+void printMap(unordered_map<int,set<int>> m);
 bool cmp(string a, string b) {
    	if(a.size()!=b.size())
 		return a.size()<b.size();
@@ -35,7 +33,7 @@ int main(){
 	//might want to redo to file opener.
 	
 	//read inputs from file. might want to optimize to take prefix set and suffix set in here.
-	char file_path[] = "./dcts/dfa_5_try_3.dct";
+	char file_path[] = "./dcts/dfa_4_try_1.dct";
 	freopen(file_path,"r",stdin);
 	int train_size,alsize;
 	scanf("%d %d",&train_size,&alsize);
@@ -185,9 +183,6 @@ int main(){
 	}
 	printf("finish condition 2\n");
 	
-	/* printing
-	for(set<int>::iterator i=dmap[1][1].begin();i!=dmap[1][1].end(); i++)		cout<<"hi   "<<*i<<"   \n";	*/
-	
 	//conflict graph
 	int edgeNum=0;
 	stack< int> edge_0,edge_1;
@@ -202,16 +197,11 @@ int main(){
 					edge_1.push(*k);
 					edgeNum++;
 				}
+	
 			}	
 		}
 	}
 	cout<<"finish conflict graph output\n";
-	/*  printing
-	for(set<int>::iterator i=different_group[0].begin();i!=different_group[0].end(); i++){
-		
-		cout<<"hi   "<<*i<<"   \n";
-	}
-	*/
 	//buildin txt file for coloring
 	/*
 	freopen("output.txt","w",stdout);
@@ -231,14 +221,19 @@ int main(){
 	scanf("%*f %*s %*s %*s %d",&color); 
 	*/
 	
-	int color=2;
+	color=2;
 	cout<<"found lower bound number of states "<< color<<"\n";
 	
 	bool fail = false;
 	while(!fail){
+		cout<<"****************************************\n";
+		cout<<"****************************************\n";
+		cout<<"****************************************\n";
+		cout<<"start color "<<color<<"\n";
+
 		// searching
 		int prefix_finish=0;
-		unordered_map< int,set< int>> prefix_table, state2prefix;
+		unordered_map< int,set< int>> prefix_table;
 		//state starts with 0!!!!!!!!!!!!!!!!!!! unlabel is -3
 		// color starts at prefixes.size()+color_num+1
 		int prefix2state[prefixes.size()+color];
@@ -252,32 +247,25 @@ int main(){
 		// prefix and state, state prefix, prefix state for tuples. 
 		int sb[color];
 		prefix_table[0].insert(0);
+		prefix2state[0]=0;
+		prefix_finish++;
 		for(int i=1;i<prefixes.size();i++){
 			//symmetry breaking
 			if(i<color+1)
 				sb[i-1]=i;
 			int j;
 			//initalize
-			if(i==1)
-				cout<<"hiii";
 			if(different_group[0].find(i)==different_group[0].end()){
-				if(i==1)
-					cout<<"yes";
 				j=0;
 			}
 			else{
-				if(i==1)
-					cout<<"no";
 				 j=1;
 			}
-			while(j<=i && j<=color)
+			while(j<=i && j<color)
 				prefix_table[i].insert(j++);
 		}
 		
-		cout<<prefix_table[1].size()<<" !!!!!! \n";
-		prefix2state[0]=0;
-		prefix_finish++;
-		cout<<prefix_table[1].size()<<" !!!!!! \n";
+		
 		int update_index=update(0,0,prefix2state,p2s_t,different_group,prefix_table,    prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,false,prefix_finish);
 		cout<<prefix_table[1].size()<<" !!!!!! \n";
 		int closest=1;
@@ -286,21 +274,22 @@ int main(){
 		if(update_index<0){
 			cout<<"error\n";
 		}
-		else
+		else{
 			cout<<"start search\n";
 		//set_state(p0,s0,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace, prefix_done);
-		int s = search(update_index,assumption_p,assumption_s, closest,prefix2state, p2s_t,different_group, prefix_table, prefix_table_p,prefix_table_t, prefix2constrain,constrain_content, prefix_finish, 0);
+			int s = search(update_index,assumption_p,assumption_s, closest,prefix2state, p2s_t,different_group, prefix_table, prefix_table_p,prefix_table_t, prefix2constrain,constrain_content, prefix_finish, 0);
 		//search
 		//symmetry_breaking(color,*sb,*prefix2state,prefix_table,prefix_table_t, false);
-		if(s){
-			cout<<"final number of states "<<color<<"\n";
-			break;
+			if(s){
+				cout<<"final number of states "<<color<<"\n";
+				break;
+			}
 		}
 		color++;
-		cout<<"color "<<color<<"\n";
-		cout<<"****************************************\n";
-		cout<<"****************************************\n";
-		cout<<"****************************************\n";
+		if(color>15){
+			cout<<"faileddddddddddddd!!!!!!!!!!!!!!";
+			break;
+		}
 	}
 	cout<<"end";
 }
@@ -308,30 +297,37 @@ int main(){
 int search(int prefix_candidate,stack<int> &assumption_p,stack<int> &assumption_s, int &closest,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, int &prefix_finish, int depth){
 	cout<<"##################################################\n";
 	cout<<"##################################################\n";
-	cout<<"start searching for prefix candidate"<<prefix_candidate<<"\n";
+	cout<<"start searching for color" <<color<<"\n";
 	cout<<"the depth is "<<depth<<"\n";
 	cout<<"number of prefix finish is "<<prefix_finish<<" out of "<<prefix_table.size()<<"\n";
 	if(prefix_finish==prefix_table.size())
 		return 1;
 	int search_result, prefix;
-	while(prefix2state[closest]!=-3){
-		//cout<<closest<<" close \n";
-		//cout<<prefix2state[closest]<<"\n";
-		closest++;
-		if(closest>prefix_table.size())
-			closest=1;
+	int progress=0;
+	int small=-3;
+	int smallS=-100;
+	int tmp;
+	for(int i=0;i<prefix_table.size();i++){
+		tmp=prefix_table[i].size();
+		if(prefix_table[i].size()==1)
+			progress++;
+		if(small==-3 && tmp>1 && *(prefix2state+i)==-3){
+			small=i;
+			smallS=tmp;
+		}
+		else if(small!=-3 && tmp>1 && tmp<smallS&&*(prefix2state+i)==-3){
+			small=i;
+			smallS=tmp;
+		}
+		
 	}
-	cout<<"the closest is prefix "<<closest<<" with state "<<prefix2state[closest]<<"\n";
-	if(prefix_table[closest].size()<prefix_table[prefix_candidate].size() && prefix2state[closest]==-3){
-		//cout<<prefix_table[closest].size()<<" close size\n";
-		//cout<<prefix_table[prefix].size()<<" prefix size\n";
-		//cout<<closest<<" close \n";
-		prefix=closest;
-	}
-	else
-		prefix=prefix_candidate;
-
-	cout<<"now the search is for prfix "<<prefix<<"\n";
+	if(prefix2state[small]!=-3)
+		cout<<"@@@@@@@@@@@@@@ problem @@@@@@@@\n";
+	if(progress==prefix_table.size())
+		return 1;
+	prefix=small;
+	cout<<"!!!!!!! now the search is for prfix "<<prefix<<"\n";
+	cout<<"progress is "<<progress<<"out of "<<prefix_table.size()<<"\n";
 	int assumption_p_s=assumption_p.size();
 	int p2s_t_s=p2s_t.size();
 	int pt_p_s=prefix_table_p.size();
@@ -339,14 +335,15 @@ int search(int prefix_candidate,stack<int> &assumption_p,stack<int> &assumption_
 	set<int> pt=prefix_table[prefix];
 	int count=0;
 	for(auto i=pt.begin();i!=pt.end();i++){
-		//cout<<"searching process for prefix "<<prefix<<"using state "<<*i<< " with count "<<count<<" out of "<<pt.size()<<"\n";
+		
+		cout<<"searching process for prefix "<<prefix<<"using state "<<*i<< " with count "<<count<<" out of "<<pt.size()<<"\n";
 		count++;
 		assumption_p.push(prefix);
 		assumption_s.push(*i);
 		set_state(prefix,*i,prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,true,prefix_finish);
 		int update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
 		while(update_index>-1){
-			cout<<"searching assumption is correct for prefixs "<<prefix<<"with state "<<*i<<" continuing next search\n";
+			cout<<"searching assumption works for prefixs "<<prefix<<"with state "<<*i<<" continuing next search\n";
 			search_result=search(update_index,assumption_p,assumption_s,++closest,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,prefix_finish,depth+1);
 			if(search_result){
 				//cout<<"search success, returning to initial depth\n";
@@ -376,6 +373,7 @@ int search(int prefix_candidate,stack<int> &assumption_p,stack<int> &assumption_
 				cout<<"redoing update and search\n";
 				update_index=update(prefix,*i,prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,true,prefix_finish);
 			}
+		
 			else{
 				cout<<"passing up failure for prefix "<<prefix<<"\n";
 				return 0;
@@ -383,13 +381,17 @@ int search(int prefix_candidate,stack<int> &assumption_p,stack<int> &assumption_
 		}
 		cout<<"failed while loop. change assumption for the next state from "<<*i<<" for prefix "<<prefix<<"\n";
 		prefix_finish=p_f;
+		cout<<"stop 1\n";
 		while(pt_p_s<prefix_table_p.size()){
+			cout<<"stop 2\n";
 			set<int> ptset=prefix_table_t.top();
 			int ptint=prefix_table_p.top();
 			prefix_table_t.pop();
 			prefix_table_p.pop();
 			prefix_table[ptint].insert(ptset.begin(),ptset.end());	
 		}
+
+		cout<<"stop 3\n";
 		assumption_p.pop();
 		assumption_s.pop();
 	}
@@ -401,8 +403,10 @@ int search(int prefix_candidate,stack<int> &assumption_p,stack<int> &assumption_
 
 // strict deduction. should have no error. only error is in assumption
 int set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p, stack<set<int>> &prefix_table_t, bool trace, int &finish_prefix){
-	if(prefix_table[prefix].find(state)==prefix_table[prefix].end())
+	if(prefix_table[prefix].find(state)==prefix_table[prefix].end()){
+		cout<<"non existence";
 		return -1;
+	}
 	if( *(prefix2state+prefix)==-3){
 		finish_prefix++;
 	}
@@ -421,13 +425,13 @@ int set_state(int prefix,int state, int *prefix2state,stack<int> &p2s_t,unordere
 }
 int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &prefix_finish){
 	cout<<"##################################################\n";
-	cout<<"starting updating: updating for prefix "<<prefix<<"\n";
+	cout<<"starting updating: updating for prefix "<<prefix<<"with color "<<color<<"\n";
 	set<int> different_set=different_group[prefix];
 	int update_num;
 	int update_index;
-	
-	int smallest=prefix_table[*(different_set.begin())].size();
-	int smallestIndex=*(different_set.begin());
+	int smallest=0;
+	int smallestIndex=1;
+	/*
 	while(smallest<2 && prefix2state[smallestIndex]!=-3){
 		smallestIndex++;
 		smallest=prefix_table[smallest].size();
@@ -435,6 +439,7 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 			smallestIndex=1;
 
 	}
+	*/
 	set<int> p2c=prefix2constrain[prefix];
 
 	cout<<"starting constrain evaluation\n";
@@ -462,7 +467,7 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 					undetermined=-1;
 				continue;
 			}
-			if(op=-1)
+			if(op==-1)
 				result+=(d1==d2);
 			else
 				result+=(d1!=d2);
@@ -471,10 +476,12 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 		if(undetermined==-2 && result>0)
 			continue;
 		// no undetermined and no result(all false) --> conflict
-		if(undetermined==-2)
+		if(undetermined==-2){
+			cout<<"contradict constrains\n";
 			return -1;
+		}
 		// exactly one undetermined
-		if(undetermined>-1 && result==num_constrain/3-1){
+		if(undetermined>-1 && result>0 && result==num_constrain/3-2){
 			int op=content[undetermined++];
 			int c1=content[undetermined++];
 			int c2=content[undetermined++];
@@ -520,12 +527,13 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 					set_state(p0,*(prefix_table[p0].begin()),prefix2state,p2s_t,prefix_table,prefix_table_p,prefix_table_t,trace,prefix_finish);
 					update_index=update(p0,*(prefix_table[p0].begin()),prefix2state,p2s_t,different_group,prefix_table,prefix_table_p,prefix_table_t,prefix2constrain, constrain_content,trace,prefix_finish);
 				}
-				if(update_index==-1){
-					cout<<"failed difference update, returning -1 \n";
+				if(update_index=-1){
+					cout<<"failed force inequality update, returning -1 \n";
 					return -1;
 			}
 				
 				if(prefix_table[p0].size()==0)
+					cout<<"failed force inequality update due to size==0, returning -1 \n";
 					return -1;
 				}	
 			}
@@ -533,8 +541,6 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 	}
 	cout<<" end of constrain eval\n";
 	int count=0;
-	if(prefix==0)
-		return smallestIndex;
 
 	for(auto i=different_set.begin();i!=different_set.end();i++){
 		if(count%1000==0 && count>1)
@@ -571,76 +577,15 @@ int update(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_m
 			}
 		}
 	}
+
 	cout<<"end of different set eval\n";
-	return smallestIndex;
+	return smallest;
 }
 
-/*
-int conflict(int prefix,int state,int *prefix2state, stack<int> &p2s_t,unordered_map<int,set<int>> &different_group, unordered_map<int,set< int>> &prefix_table, stack<int> &prefix_table_p,stack<set<int>> &prefix_table_t, map< int,set< int>> &prefix2constrain,vector<vector<int>> &constrain_content, bool trace,int &prefix_finish){
-	
-}
-*/
-/*
-void symmetry_breaking(int color,(int *)sb, (int *) prefix2state,unordered_map< int,set< int>> prefix_table, stack<tuple< int, int>> prefix_table_t,bool trace){
-	for(int i=0;i<color;i++){
-		if( prefix2state[*(sb+i)] < i+2 && prefix2[*(sb+i)]>0){
-			
-			for(int j=++*(sb+i);j<prefix_table.size();j++){
-				int s = *(prefix_table[j].end()-1);
-				prefix_table[j].erase(s);
-				if(bool){
-					prefix_table_t.push(make_tuple(j,s));
-				}
-			
-			}
-		}
+void printMap(unordered_map<int,set<int>> m, int n){
+	for(auto i=m[n].begin();i!=m[n].end();i++){
+		cout<<*i<<"  ";
 	}
+	cout<<"\n";
 }
 
-//access conflict by *((conflict+i*n)+j)
-// appears that all constrains are in the form of or, so as long as one of them works, all of them works. 
-int parser(vector<vector<int>> constrain_op,vector<vector<int>> constrain_content,int constrain,(int *)prefix2state ){
-	int num_constrain = contrain_op[constrain].size();
-	int result = 0;
-	int j=0;
-	for(int i=0;i<num_constrain;i++){
-		char op = contrain_op[constrain][i];
-		int a = constrain_content[cosntrain][j++];
-		int b = constrain_content[cosntrain][j++];
-		int c = *(prefix2state+a);
-		int d = *(prefix2state+b);
-		if(op='e')
-			result=(c==d);
-		else
-			result=(c!=d);
-		if(result==1)
-			break;
-	}
-	return result;
-
-}
-
-//check whehter something is ready for parsing, return a set of integers that need assumptions
-set<int> parse_preper()
-
-//build assumptions. remember to take in tracer. also use a set of int as implication graph. void.
-void assumption_builder()
-
-// return conflict for database. use when parser return false.might want to look at dpll. 
-vector<int> conflict_diagnosis()
-
-//redo. take in tracer and relevent databases.
-void backtracking()
-
-*/
-	/*
-void merged(int state, int prefix, unordered_map<int,set<int>> prefix_table, bool track, stack<tuple<int,int>> prefix_table_trace){
-	if(!track){
-		
-	}
-	else{
-
-	}
-}
-*/
-	
